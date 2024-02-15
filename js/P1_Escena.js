@@ -13,6 +13,8 @@
 /*******************
  * TO DO: Cargar los modulos necesarios
  *******************/
+import * as THREE from "../lib/three.module.js";
+import {GLTFLoader} from "../lib/GLTFLoader.module.js";
 
 // Variables de consenso
 let renderer, scene, camera;
@@ -35,10 +37,12 @@ function init()
     /*******************
     * TO DO: Completar el motor de render y el canvas
     *******************/
+    document.getElementById('container').appendChild( renderer.domElement );
 
     // Escena
     scene = new THREE.Scene();
-    
+    scene.background = new THREE.Color(0.5,0.5,0.5);
+
     // Camara
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1,1000);
     camera.position.set( 0.5, 2, 7 );
@@ -52,6 +56,9 @@ function loadScene()
     /*******************
     * TO DO: Construir un suelo en el plano XZ
     *******************/
+    const suelo = new THREE.Mesh( new THREE.PlaneGeometry(10,10, 10,10), material );
+    suelo.rotation.x = -Math.PI / 2;
+    scene.add(suelo);
 
     /*******************
     * TO DO: Construir una escena con 5 figuras diferentes posicionadas
