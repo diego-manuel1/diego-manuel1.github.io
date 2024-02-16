@@ -52,8 +52,9 @@ function init()
 
 function loadScene()
 {
-    const material = new THREE.MeshNormalMaterial( );
-
+    //const material = new THREE.MeshNormalMaterial();
+    //Cambiamos de momento a un basic material
+    const material = new THREE.MeshBasicMaterial( { color: 'yellow', wireframe: true } );
     /*******************
     * TO DO: Construir un suelo en el plano XZ
     *******************/
@@ -67,7 +68,7 @@ function loadScene()
     *******************/
     // Creamos el pentagono para posicionar las figuras
     const geoPent = new THREE.CylinderGeometry( 1, 5, 1, 5, 1);
-    const pent = new THREE.Mesh( geoCubo, material );
+    const pent = new THREE.Mesh( geoPent, material );
     //Creamos la geometría de las figuras
     const geoCubo = new THREE.BoxGeometry( 2,2,2 );
     const geoEsfera = new THREE.SphereGeometry( 1, 20,20 );
@@ -91,7 +92,7 @@ function loadScene()
     /*******************
     * TO DO: Añadir a la escena un modelo importado en el centro del pentagono
     *******************/
-    const glloader = new GLTFLoader();
+    /*const glloader = new GLTFLoader();
     glloader.load( 'models/RobotExpressive.glb', function ( gltf ) {
         //glloader.load( 'models/robota/scene.gltf', function ( gltf ) {
             gltf.scene.position.y = 1;
