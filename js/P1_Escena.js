@@ -23,7 +23,8 @@ let renderer, scene, camera;
 /*******************
  * TO DO: Variables globales de la aplicacion
  *******************/
-let pentObject
+let pentObject;
+let angulo = 0;
 
 // Acciones
 init();
@@ -119,6 +120,8 @@ function update()
     * TO DO: Modificar el angulo de giro de cada objeto sobre si mismo
     * y del conjunto pentagonal sobre el objeto importado
     *******************/
+    angulo += 0.01;
+    pentObject.rotation.y = angulo;
 }
 
 function render()
