@@ -94,7 +94,7 @@ function loadScene()
     pentObject.add(esfera);
     pentObject.add(cone);
     pentObject.add(cylinder);
-    pentObject.add(esfera);
+    pentObject.add(capsule);
     //Agregamos el objeto a la escena
     scene.add(pentObject);
     /*******************
