@@ -77,11 +77,13 @@ function loadScene()
     const geoCylinder = new THREE.CylinderGeometry( 1, 1, 2);
     const geoCapsule = new THREE.CapsuleGeometry(1, 5, 1);
     //Creamos la mesh con la geometría y el material
+    
     const cubo = new THREE.Mesh( geoCubo, material );
     const esfera = new THREE.Mesh( geoEsfera, material );
     const cone = new THREE.Mesh( geoCone, material );
     const cylinder = new THREE.Mesh( geoCylinder, material );
     const capsule = new THREE.Mesh( geoCapsule, material );
+    let figures = {cubo, esfera, cone, cylinder, capsule}
     //Creamos el objeto 3D que representa el pentagono
     pentObject = new THREE.Object3D();
     pentObject.position.x=0;
@@ -95,6 +97,17 @@ function loadScene()
     pentObject.add(cone);
     pentObject.add(cylinder);
     pentObject.add(capsule);
+    //Obtenemos los vertices de la geometría del pentagono
+    pentVertices = geoPent.getAttribute('position');
+    //Colocamos el resto de figuras en los extremos del pentagono.
+    const vertex = new THREE.Vector3();
+    for(let i = 0; i < 5; i++)
+    {
+        vertex.fromBufferAttribute(pentVertices, i);
+        figures[i].position.x = vertex.x;
+        figures[i].position.y = vertex.y;
+        figures[i].position.z = vertex.z;
+    }
     //Agregamos el objeto a la escena
     scene.add(pentObject);
     /*******************
