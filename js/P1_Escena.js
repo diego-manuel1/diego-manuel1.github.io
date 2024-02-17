@@ -87,6 +87,7 @@ function loadScene()
     pentObject.position.y=1;
     pentObject.position.z=0;
     pentObject.add(pent);
+    pentObject.add( new THREE.AxesHelper(1) )
     //Agregamos el objeto a la escena
     scene.add(pentObject);
     /*******************
