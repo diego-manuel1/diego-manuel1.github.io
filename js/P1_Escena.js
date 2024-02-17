@@ -89,6 +89,8 @@ function loadScene()
     pentObject.position.z=0;
     pentObject.add(pent);
     pentObject.add( new THREE.AxesHelper(1) )
+    //Agregamos al pentagono las cinco figuras
+    pentObject.add(cubo)
     //Agregamos el objeto a la escena
     scene.add(pentObject);
     /*******************
