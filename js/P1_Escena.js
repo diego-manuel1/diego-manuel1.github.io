@@ -74,7 +74,7 @@ function loadScene()
     //Creamos la geometría de las figuras
     const geoCubo = new THREE.BoxGeometry( 2,2,2 );
     const geoEsfera = new THREE.SphereGeometry( 1, 20,20 );
-    const geoCone = new THREE.ConeGeometry( 1, 10, 8, 1);
+    const geoCone = new THREE.ConeGeometry( 1, 5, 8, 1);
     const geoCylinder = new THREE.CylinderGeometry( 1, 1, 2);
     const geoCapsule = new THREE.CapsuleGeometry(1, 5, 1);
     //Creamos la mesh con la geometría y el material
