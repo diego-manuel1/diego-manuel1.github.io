@@ -144,11 +144,12 @@ function loadScene()
     *******************/
     const glloader = new GLTFLoader();
     glloader.load( 'models/anime_lady_officer/scene.gltf', function ( gltf ) {
-            //gltf.scene.position.y = 1;
-            //gltf.scene.rotation.y = -Math.PI/2;
-            pentObject.add( gltf.scene );
             gltf.scene.position.y = 1;
             gltf.scene.rotation.y = -Math.PI/2;
+            pentObject.add( gltf.scene );
+            gltf.scene.rotation.x = gltf.scene.rotation.x * 2;
+            gltf.scene.rotation.y = gltf.scene.rotation.y * 2;
+            gltf.scene.rotation.z = gltf.scene.rotation.z * 2;
             console.log("LADY OFFICER");
             console.log(gltf);
         
