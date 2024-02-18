@@ -69,24 +69,6 @@ function loadScene()
     *******************/
     // Creamos el pentagono para posicionar las figuras
     //const geoPent = new THREE.CylinderGeometry( 1, 5, 1, 5, 1);
-    //Creamos la forma del pentagono
-    const pentShape = new THREE.Shape();
-    const pentRadius = 4;
-    const pentSides = 5;
-    for (let i = 0; i < pentSides; i++) {
-        let angle = (i / pentSides) * Math.PI * 2;
-        let x = Math.cos(angle) * pentRadius;
-        let y = Math.sin(angle) * pentRadius;
-        if (i === 0) {
-            pentShape.moveTo(x, y);
-        } else {
-            pentShape.lineTo(x, y);
-        }
-    }
-    //Creamos la geometría del pentagono
-    const geoPent = new THREE.ShapeGeometry( pentShape );
-    const pent = new THREE.Mesh( geoPent, material );
-    pent.rotation.x = -Math.PI / 2;
     //Creamos la geometría de las figuras
     const geoCubo = new THREE.BoxGeometry( 2,2,2 );
     const geoEsfera = new THREE.SphereGeometry( 1, 20,20 );
@@ -101,6 +83,28 @@ function loadScene()
     const cylinder = new THREE.Mesh( geoCylinder, material );
     const capsule = new THREE.Mesh( geoCapsule, material );
     let figures = [cubo, esfera, cone, cylinder, capsule]
+    //Creamos la forma del pentagono y posicionamos sobre sus vertices a las figuras
+    const pentShape = new THREE.Shape();
+    const pentRadius = 4;
+    const pentSides = 5;
+    for (let i = 0; i < pentSides; i++) {
+        let angle = (i / pentSides) * Math.PI * 2;
+        let x = Math.cos(angle) * pentRadius;
+        let y = Math.sin(angle) * pentRadius;
+        if (i === 0) {
+            pentShape.moveTo(x, y);
+        } else {
+            pentShape.lineTo(x, y);
+        }
+        //Colocamos la figura en la posición
+        figures[i].position.x = x;
+        figures[i].position.y = y;
+    }
+    //Creamos la geometría del pentagono
+    const geoPent = new THREE.ShapeGeometry( pentShape );
+    const pent = new THREE.Mesh( geoPent, material );
+    pent.rotation.x = -Math.PI / 2;
+    
     //Creamos el objeto 3D que representa el pentagono
     pentObject = new THREE.Object3D();
     pentObject.position.x=0;
