@@ -82,9 +82,10 @@ function loadScene()
     const cone = new THREE.Mesh( geoCone, material );
     const cylinder = new THREE.Mesh( geoCylinder, material );
     const capsule = new THREE.Mesh( geoCapsule, material );
-    let figures = [cubo, esfera, cone, cylinder, capsule]
+    let figures = [cubo, esfera, cone, cylinder, capsule];
     //Creamos la forma del pentagono y posicionamos sobre sus vertices a las figuras
     const pentShape = new THREE.Shape();
+    pentShape.rotation.x = -Math.PI / 2;
     const pentRadius = 4;
     const pentSides = 5;
     for (let i = 0; i < pentSides; i++) {
@@ -103,7 +104,6 @@ function loadScene()
     //Creamos la geometría del pentagono
     const geoPent = new THREE.ShapeGeometry( pentShape );
     const pent = new THREE.Mesh( geoPent, material );
-    pent.rotation.x = -Math.PI / 2;
     
     //Creamos el objeto 3D que representa el pentagono
     pentObject = new THREE.Object3D();
