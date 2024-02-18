@@ -98,7 +98,7 @@ function loadScene()
     pentObject.add(cylinder);
     pentObject.add(capsule);
     //Obtenemos los vertices de la geometría del pentagono
-    pentVertices = geoPent.getAttribute('position');
+    //pentVertices = geoPent.getAttribute('position');
     //Colocamos el resto de figuras en los extremos del pentagono.
     /*const vertex = new THREE.Vector3();
     for(let i = 0; i < 5; i++)
