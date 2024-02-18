@@ -108,7 +108,7 @@ function loadScene()
     //Hacemos hijos del mesh del pentagono al resto de mesh y los rotamos para que sean paralelos al pentagono
     for(let i = 0; i < figures.length; i++){
         pent.add(figures[i]);
-        figures[i].rotation.x = -Math.PI / 2;
+        figures[i].rotation.x = Math.PI / 2;
     }
     //Rotamos el pentagono para que sea paralelo al suelo (también se mueven las figuras para que sean paralelas sobre el plano)
     pent.rotation.x = -Math.PI / 2;
