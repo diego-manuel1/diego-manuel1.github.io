@@ -83,7 +83,7 @@ function loadScene()
     const cone = new THREE.Mesh( geoCone, material );
     const cylinder = new THREE.Mesh( geoCylinder, material );
     const capsule = new THREE.Mesh( geoCapsule, material );
-    let figures = {cubo, esfera, cone, cylinder, capsule}
+    let figures = [cubo, esfera, cone, cylinder, capsule]
     //Creamos el objeto 3D que representa el pentagono
     pentObject = new THREE.Object3D();
     pentObject.position.x=0;
