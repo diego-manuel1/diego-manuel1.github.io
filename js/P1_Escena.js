@@ -175,7 +175,7 @@ function update()
     *******************/
     angulo += 0.01;
     pentObject.rotation.y = angulo;
-    model.rotation.y = angulo;
+    //model.rotation.y = angulo;
     for(let i = 0; i < figures.length; i++){
         figures[i].rotation.y = angulo
     }
