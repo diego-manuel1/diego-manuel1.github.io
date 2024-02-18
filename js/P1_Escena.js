@@ -153,7 +153,7 @@ function loadScene()
             gltf.scene.scale.y = gltf.scene.scale.y * 2;
             gltf.scene.scale.z = gltf.scene.scale.z * 2;
             console.log("LADY OFFICER");
-            model = gltf;
+            model = gltf.scene;
             console.log(gltf);
         
         }, undefined, function ( error ) {
@@ -175,9 +175,14 @@ function update()
     *******************/
     angulo += 0.01;
     pentObject.rotation.y = angulo;
-    //model.rotation.y = angulo;
     for(let i = 0; i < figures.length; i++){
         figures[i].rotation.y = angulo
+    }
+    try{
+        model.rotation.y = angulo;
+    }
+    catch{
+        console.log("El modelo no se ha cargado")
     }
 }
 
