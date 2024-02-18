@@ -74,9 +74,9 @@ function loadScene()
     const pentRadius = 4;
     const pentSides = 5;
     for (let i = 0; i < pentSides; i++) {
-        const angle = (i / sides) * Math.PI * 2;
-        const x = Math.cos(angle) * pentRadius;
-        const y = Math.sin(angle) * pentRadius;
+        let angle = (i / pentSides) * Math.PI * 2;
+        let x = Math.cos(angle) * pentRadius;
+        let y = Math.sin(angle) * pentRadius;
         if (i === 0) {
             pentShape.moveTo(x, y);
         } else {
