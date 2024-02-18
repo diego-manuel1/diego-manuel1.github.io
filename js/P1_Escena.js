@@ -142,13 +142,12 @@ function loadScene()
     /*******************
     * TO DO: Añadir a la escena un modelo importado en el centro del pentagono
     *******************/
-    /*const glloader = new GLTFLoader();
-    glloader.load( 'models/RobotExpressive.glb', function ( gltf ) {
-        //glloader.load( 'models/robota/scene.gltf', function ( gltf ) {
+    const glloader = new GLTFLoader();
+    glloader.load( 'models/anime_lady_officer/scene.gltf', function ( gltf ) {
             gltf.scene.position.y = 1;
             gltf.scene.rotation.y = -Math.PI/2;
-            esfera.add( gltf.scene );
-            console.log("ROBOT");
+            pentObject.add( gltf.scene );
+            console.log("LADY OFFICER");
             console.log(gltf);
         
         }, undefined, function ( error ) {
