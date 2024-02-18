@@ -73,10 +73,10 @@ function loadScene()
     const pentShape = new THREE.Shape();
     const pentRadius = 4;
     const pentSides = 5;
-    for (let i = 0; i < sides; i++) {
+    for (let i = 0; i < pentSides; i++) {
         const angle = (i / sides) * Math.PI * 2;
-        const x = Math.cos(angle) * radius;
-        const y = Math.sin(angle) * radius;
+        const x = Math.cos(angle) * pentRadius;
+        const y = Math.sin(angle) * pentRadius;
         if (i === 0) {
             pentShape.moveTo(x, y);
         } else {
