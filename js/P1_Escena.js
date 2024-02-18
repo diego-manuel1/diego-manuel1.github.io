@@ -68,7 +68,23 @@ function loadScene()
     * en los cinco vertices de un pentagono regular alredor del origen
     *******************/
     // Creamos el pentagono para posicionar las figuras
-    const geoPent = new THREE.CylinderGeometry( 1, 5, 1, 5, 1);
+    //const geoPent = new THREE.CylinderGeometry( 1, 5, 1, 5, 1);
+    //Creamos la forma del pentagono
+    const pentShape = new THREE.Shape();
+    const pentRadius = 4;
+    const pentSides = 5;
+    for (let i = 0; i < sides; i++) {
+        const angle = (i / sides) * Math.PI * 2;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        if (i === 0) {
+            pentShape.moveTo(x, y);
+        } else {
+            pentShape.lineTo(x, y);
+        }
+    }
+    //Creamos la geometría del pentagono
+    const geoPent = new THREE.ShapeGeometry( pentShape );
     const pent = new THREE.Mesh( geoPent, material );
     //Creamos la geometría de las figuras
     const geoCubo = new THREE.BoxGeometry( 2,2,2 );
