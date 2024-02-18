@@ -24,6 +24,8 @@ let renderer, scene, camera;
  * TO DO: Variables globales de la aplicacion
  *******************/
 let pentObject;
+let figures;
+let model;
 let angulo = 0;
 
 // Acciones
@@ -82,7 +84,7 @@ function loadScene()
     const cone = new THREE.Mesh( geoCone, material );
     const cylinder = new THREE.Mesh( geoCylinder, material );
     const capsule = new THREE.Mesh( geoCapsule, material );
-    let figures = [cubo, esfera, cone, cylinder, capsule];
+    figures = [cubo, esfera, cone, cylinder, capsule];
     //Creamos la forma del pentagono y posicionamos sobre sus vertices a las figuras
     const pentShape = new THREE.Shape();
     const pentRadius = 4;
@@ -151,6 +153,7 @@ function loadScene()
             gltf.scene.scale.y = gltf.scene.scale.y * 2;
             gltf.scene.scale.z = gltf.scene.scale.z * 2;
             console.log("LADY OFFICER");
+            model = gltf;
             console.log(gltf);
         
         }, undefined, function ( error ) {
@@ -172,6 +175,10 @@ function update()
     *******************/
     angulo += 0.01;
     pentObject.rotation.y = angulo;
+    model.rotation.y = angulo;
+    for(let i = 0; i < figures.length; i++){
+        figures[i].rotation.y = angulo
+    }
 }
 
 function render()
