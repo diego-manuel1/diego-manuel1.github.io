@@ -86,6 +86,7 @@ function loadScene()
     //Creamos la geometría del pentagono
     const geoPent = new THREE.ShapeGeometry( pentShape );
     const pent = new THREE.Mesh( geoPent, material );
+    pent.rotation.x = -Math.PI / 2;
     //Creamos la geometría de las figuras
     const geoCubo = new THREE.BoxGeometry( 2,2,2 );
     const geoEsfera = new THREE.SphereGeometry( 1, 20,20 );
