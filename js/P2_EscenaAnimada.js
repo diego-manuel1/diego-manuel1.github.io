@@ -65,11 +65,16 @@ function loadScene()
     //Cambiamos de momento a un basic material
     const material = new THREE.MeshBasicMaterial( { color: 'yellow', wireframe: true } );
     /*******************
-    * TO DO: Misma escena que en la practica anterior
+    * TO DO: Construir un suelo en el plano XZ
     *******************/
     const suelo = new THREE.Mesh( new THREE.PlaneGeometry(10,10, 10,10), material );
     suelo.rotation.x = -Math.PI / 2;
     scene.add(suelo);
+
+    /*******************
+    * TO DO: Construir una escena con 5 figuras diferentes posicionadas
+    * en los cinco vertices de un pentagono regular alredor del origen
+    *******************/
     // Creamos el pentagono para posicionar las figuras
     //const geoPent = new THREE.CylinderGeometry( 1, 5, 1, 5, 1);
     //Creamos la geometría de las figuras
@@ -123,8 +128,28 @@ function loadScene()
     pentObject.position.z=0;
     pentObject.add(pent);
     pentObject.add( new THREE.AxesHelper(1) );
+    //Agregamos al pentagono las cinco figuras
+    //pentObject.add(cubo);
+    //pentObject.add(esfera);
+    //pentObject.add(cone);
+    //pentObject.add(cylinder);
+    //pentObject.add(capsule);
+    //Obtenemos los vertices de la geometría del pentagono
+    //pentVertices = geoPent.getAttribute('position');
+    //Colocamos el resto de figuras en los extremos del pentagono.
+    /*const vertex = new THREE.Vector3();
+    for(let i = 0; i < 5; i++)
+    {
+        vertex.fromBufferAttribute(pentVertices, i);
+        figures[i].position.x = vertex.x;
+        figures[i].position.y = vertex.y;
+        figures[i].position.z = vertex.z;
+    }*/
     //Agregamos el objeto a la escena
     scene.add(pentObject);
+    /*******************
+    * TO DO: Añadir a la escena un modelo importado en el centro del pentagono
+    *******************/
     const glloader = new GLTFLoader();
     glloader.load( 'models/anime_lady_officer/scene.gltf', function ( gltf ) {
             gltf.scene.position.y = -1;
@@ -142,6 +167,9 @@ function loadScene()
             console.error( error );
         
         } );
+    /*******************
+    * TO DO: Añadir a la escena unos ejes
+    *******************/
     scene.add( new THREE.AxesHelper(3) );
 }
 
