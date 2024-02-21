@@ -27,8 +27,7 @@ let cameraControls;
  *******************/
 let pentObject;
 let figures;
-let model;
-let angulo = 0;
+
 // Acciones
 init();
 loadScene();
