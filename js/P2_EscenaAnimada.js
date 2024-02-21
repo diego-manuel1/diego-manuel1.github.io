@@ -128,23 +128,6 @@ function loadScene()
     pentObject.position.z=0;
     pentObject.add(pent);
     pentObject.add( new THREE.AxesHelper(1) );
-    //Agregamos al pentagono las cinco figuras
-    //pentObject.add(cubo);
-    //pentObject.add(esfera);
-    //pentObject.add(cone);
-    //pentObject.add(cylinder);
-    //pentObject.add(capsule);
-    //Obtenemos los vertices de la geometría del pentagono
-    //pentVertices = geoPent.getAttribute('position');
-    //Colocamos el resto de figuras en los extremos del pentagono.
-    /*const vertex = new THREE.Vector3();
-    for(let i = 0; i < 5; i++)
-    {
-        vertex.fromBufferAttribute(pentVertices, i);
-        figures[i].position.x = vertex.x;
-        figures[i].position.y = vertex.y;
-        figures[i].position.z = vertex.z;
-    }*/
     //Agregamos el objeto a la escena
     scene.add(pentObject);
     /*******************
