@@ -25,7 +25,10 @@ let renderer, scene, camera;
 /*******************
  * TO DO: Variables globales de la aplicacion
  *******************/
-
+let pentObject;
+let figures;
+let model;
+let angulo = 0;
 // Acciones
 init();
 loadScene();
