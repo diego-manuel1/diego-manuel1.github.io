@@ -20,14 +20,13 @@ import {TWEEN} from "../lib/tween.module.min.js";
 import {GUI} from "../lib/lil-gui.module.min.js";
 // Variables de consenso
 let renderer, scene, camera;
-let cameraControls;
 // Otras globales
 /*******************
  * TO DO: Variables globales de la aplicacion
  *******************/
 let pentObject;
 let figures;
-
+let cameraControls, effectController;
 // Acciones
 init();
 loadScene();
@@ -166,7 +165,7 @@ function loadGUI()
     * - Checkbox para alambrico/solido
     *******************/
    // Definicion de los controles
-/*	effectController = {
+	effectController = {
 		mensaje: 'Lady Officer',
 		radioPent: 0.0,
 	};
@@ -177,7 +176,7 @@ function loadGUI()
 	// Construccion del menu
 	const h = gui.addFolder("Control PentObject");
 	h.add(effectController, "mensaje").name("Aplicacion");
-	h.add(effectController, "radioPent", 0, 5, 10).name("Radio del pentagono");*/
+	h.add(effectController, "radioPent", 0, 10).name("Radio del pentagono");
 }
 
 function update(delta)
