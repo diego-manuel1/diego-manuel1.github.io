@@ -20,7 +20,7 @@ import {TWEEN} from "../lib/tween.module.min.js";
 import {GUI} from "../lib/lil-gui.module.min.js";
 // Variables de consenso
 let renderer, scene, camera;
-
+let cameraControls;
 // Otras globales
 /*******************
  * TO DO: Variables globales de la aplicacion
