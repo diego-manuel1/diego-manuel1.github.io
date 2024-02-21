@@ -60,9 +60,9 @@ function init()
 
 function loadScene()
 {
-    //const material = new THREE.MeshNormalMaterial( {wireframe:false} );
+    const material = new THREE.MeshNormalMaterial( {wireframe:false} );
     //Cambiamos de momento a un basic material
-    const material = new THREE.MeshBasicMaterial( { color: 'yellow', wireframe: true } );
+    //const material = new THREE.MeshBasicMaterial( { color: 'yellow', wireframe: true } );
     /*******************
     * TO DO: Construir un suelo en el plano XZ
     *******************/
@@ -134,7 +134,7 @@ function loadScene()
     *******************/
     const glloader = new GLTFLoader();
     glloader.load( 'models/anime_lady_officer/scene.gltf', function ( gltf ) {
-            gltf.scene.position.y = -1;
+            gltf.scene.position.y = 0;
             gltf.scene.rotation.y = -Math.PI/2;
             pentObject.add( gltf.scene );
             gltf.scene.scale.x = gltf.scene.scale.y * 2;
@@ -165,6 +165,19 @@ function loadGUI()
     * - Slider de control de radio del pentagono
     * - Checkbox para alambrico/solido
     *******************/
+   // Definicion de los controles
+/*	effectController = {
+		mensaje: 'Lady Officer',
+		radioPent: 0.0,
+	};
+
+	// Creacion interfaz
+	const gui = new GUI();
+
+	// Construccion del menu
+	const h = gui.addFolder("Control PentObject");
+	h.add(effectController, "mensaje").name("Aplicacion");
+	h.add(effectController, "radioPent", 0, 5, 10).name("Radio del pentagono");*/
 }
 
 function update(delta)
