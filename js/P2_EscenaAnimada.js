@@ -24,7 +24,7 @@ let renderer, scene, camera;
 /*******************
  * TO DO: Variables globales de la aplicacion
  *******************/
-let pentObject;
+let pentShape;
 let figures;
 let cameraControls, effectController;
 // Acciones
@@ -90,11 +90,11 @@ function loadScene()
     const capsule = new THREE.Mesh( geoCapsule, material );
     figures = [cubo, esfera, cone, cylinder, capsule];
     //Creamos la forma del pentagono y posicionamos sobre sus vertices a las figuras
-    const pentShape = new THREE.Shape();
+    pentShape = new THREE.Shape();
     const pentRadius = 4;
-    const pentSides = 5;
+    //const pentSides = 5;
 
-    for (let i = 0; i < pentSides; i++) {
+    /*for (let i = 0; i < pentSides; i++) {
         let angle = (i / pentSides) * Math.PI * 2;
         //let angle = (i / pentSides) * (-Math.PI/2);
         let x = Math.cos(angle) * pentRadius;
@@ -107,7 +107,8 @@ function loadScene()
         //Colocamos la figura en la posición
         figures[i].position.x = x;
         figures[i].position.y = y;
-    }
+    }*/
+    stablishPentRadius(pentRadius)
     //Creamos la geometría del pentagono
     const geoPent = new THREE.ShapeGeometry( pentShape );
     const pent = new THREE.Mesh( geoPent, material );
@@ -120,7 +121,7 @@ function loadScene()
     pent.rotation.x = -Math.PI / 2;
     
     //Creamos el objeto 3D que representa el pentagono
-    pentObject = new THREE.Object3D();
+    const pentObject = new THREE.Object3D();
     pentObject.position.x=0;
     pentObject.position.y=1;
     pentObject.position.z=0;
@@ -152,6 +153,23 @@ function loadScene()
     * TO DO: Añadir a la escena unos ejes
     *******************/
     scene.add( new THREE.AxesHelper(3) );
+}
+//Función que establece el radio del pentagono
+function stablishPentRadius(radius){
+    for (let i = 0; i < 5; i++) {
+        let angle = (i / 5) * Math.PI * 2;
+        //let angle = (i / pentSides) * (-Math.PI/2);
+        let x = Math.cos(angle) * radius;
+        let y = Math.sin(angle) * radius;
+        if (i === 0) {
+            pentShape.moveTo(x, y);
+        } else {
+            pentShape.lineTo(x, y);
+        }
+        //Colocamos la figura en la posición
+        figures[i].position.x = x;
+        figures[i].position.y = y;
+    }
 }
 
 function loadGUI()
