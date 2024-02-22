@@ -185,7 +185,8 @@ function loadGUI()
    // Definicion de los controles
 	effectController = {
 		mensaje: 'Lady Officer',
-		radioPent: 0.0,
+		radioPent: 4.0,
+        alambric: false,
 	};
 
 	// Creacion interfaz
@@ -195,6 +196,14 @@ function loadGUI()
 	const h = gui.addFolder("Control PentObject");
 	h.add(effectController, "mensaje").name("Aplicacion");
 	h.add(effectController, "radioPent", 0, 10).name("Radio del pentagono");
+    h.add(effectController, "alambric").name("Alambric/solid");
+
+    gui.onChange( event => {
+        //Si se modifica el controlador del radio, modificamos el radio del pentagono
+        if(event.property == "Radio del pentagono"){
+            stablishPentRadius(event.value)
+        }
+    })
 }
 
 function update(delta)
