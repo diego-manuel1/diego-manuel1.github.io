@@ -25,6 +25,7 @@ let renderer, scene, camera;
  * TO DO: Variables globales de la aplicacion
  *******************/
 let pentShape;
+let material;
 let figures;
 let cameraControls, effectController;
 // Acciones
@@ -59,7 +60,7 @@ function init()
 
 function loadScene()
 {
-    const material = new THREE.MeshNormalMaterial( {wireframe:false} );
+    material = new THREE.MeshNormalMaterial( {wireframe:false} );
     //Cambiamos de momento a un basic material
     //const material = new THREE.MeshBasicMaterial( { color: 'yellow', wireframe: true } );
     /*******************
@@ -196,12 +197,16 @@ function loadGUI()
 	const h = gui.addFolder("Control PentObject");
 	h.add(effectController, "mensaje").name("Aplicacion");
 	h.add(effectController, "radioPent", 0, 10).name("Radio del pentagono");
-    h.add(effectController, "alambric").name("Alambric/solid");
+    h.add(effectController, "alambric").name("Alambric");
 
     gui.onChange( event => {
         //Si se modifica el controlador del radio, modificamos el radio del pentagono
-        if(event.property == "Radio del pentagono"){
+        if(event.property == "radioPent"){
             stablishPentRadius(event.value)
+        }
+        //Si se modifica el check box del controlador del matarial, modificamos el material
+        if(event.property == "alambric"){
+            material.wireframe = event.value;
         }
     })
 }
