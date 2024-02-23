@@ -188,6 +188,24 @@ function loadGUI()
 		mensaje: 'Lady Officer',
 		radioPent: 4.0,
         alambric: false,
+        ladyAnimation: function(){
+
+        },
+        cubeAnimation: function(){
+
+        },
+        esferaAnimation: function(){
+
+        },
+        coneAnimation: function(){
+
+        },
+        cylinderAnimation: function(){
+
+        },
+        capsuleAnimation: function(){
+
+        }
 	};
 
 	// Creacion interfaz
@@ -198,6 +216,12 @@ function loadGUI()
 	h.add(effectController, "mensaje").name("Aplicacion");
 	h.add(effectController, "radioPent", 0, 10).name("Radio del pentagono");
     h.add(effectController, "alambric").name("Alambric");
+    h.add(effectController, "ladyAnimation").name("Activar animación personaje");
+    h.add(effectController, "cubeAnimation").name("Activar animación cubo");
+    h.add(effectController, "esferaAnimation").name("Activar animación esfera");
+    h.add(effectController, "coneAnimation").name("Activar animación cono");
+    h.add(effectController, "cylinderAnimation").name("Activar animación cilindro");
+    h.add(effectController, "capsuleAnimation").name("Activar animación capsula");
 
     gui.onChange( event => {
         //Si se modifica el controlador del radio, modificamos el radio del pentagono
