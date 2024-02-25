@@ -28,6 +28,7 @@ let pentShape;
 let material;
 let figures;
 let cameraControls, effectController;
+let model;
 // Acciones
 init();
 loadScene();
@@ -227,50 +228,54 @@ function loadGUI()
 
 function animateLady(){
     new TWEEN.Tween( model.position ).
-        to( {x:[0,0],y:[3,1],z:[0,0]}, 2000 ).
+        to( {x:[0,0,0],y:[0,5,0],z:[0,0,0]}, 2000 ).
         interpolation( TWEEN.Interpolation.Bezier ).
         easing( TWEEN.Easing.Bounce.Out ).
         start();
 }
 
 function animateCube(){
-    new TWEEN.Tween( figures[0].position ).
-        to( {x:[0,0],y:[3,1],z:[0,0]}, 2000 ).
+    new TWEEN.Tween( figures[0].rotation ).
+        to( {x:[0,0],y:[0,Math.PI*2],z:[0,0]}, 2000 ).
         interpolation( TWEEN.Interpolation.Bezier ).
-        easing( TWEEN.Easing.Bounce.Out ).
+        easing( TWEEN.Easing.Linear.None ).
         start();
 }
 
 function animateEsfera(){
-    new TWEEN.Tween( figures[1].position ).
-        to( {x:[0,0],y:[3,1],z:[0,0]}, 2000 ).
+    let originScaleX = figures[1].scale.x
+    let originScaleY = figures[1].scale.y
+    let originScaleZ = figures[1].scale.z
+    new TWEEN.Tween( figures[1].scale ).
+        to( {x:[originScaleX ,originScaleX * 4, originScaleX],y:[originScaleY ,originScaleY * 4, originScaleY],z:[originScaleZ ,originScaleZ * 4, originScaleZ]}, 2000 ).
         interpolation( TWEEN.Interpolation.Bezier ).
-        easing( TWEEN.Easing.Bounce.Out ).
+        easing( TWEEN.Easing.Bounce.InOut ).
         start();
 }
 
 function animateCone(){
-    new TWEEN.Tween( figures[2].position ).
-        to( {x:[0,0],y:[3,1],z:[0,0]}, 2000 ).
-        interpolation( TWEEN.Interpolation.Bezier ).
-        easing( TWEEN.Easing.Bounce.Out ).
+    new TWEEN.Tween( figures[2].rotation ).
+        to( {x:[figures[2].rotation.x,figures[2].rotation.x-Math.PI], y:[figures[2].rotation.y, figures[2].rotation.y], z:[figures[2].rotation.z, figures[2].rotation.z]}, 2000 ).
+        easing( TWEEN.Easing.Quadratic.Out ).
         start();
 }
 
 function animateCylinder(){
-    new TWEEN.Tween( figures[3].position ).
-        to( {x:[0,0],y:[3,1],z:[0,0]}, 2000 ).
+    let originScaleX = figures[3].scale.x
+    let originScaleY = figures[3].scale.y
+    let originScaleZ = figures[3].scale.z
+    new TWEEN.Tween( figures[3].scale ).
+        to( {x:[originScaleX, originScaleX * 2, originScaleX],y:[originScaleY, originScaleY],z:[originScaleZ, originScaleZ * 2, originScaleZ]}, 2000 ).
         interpolation( TWEEN.Interpolation.Bezier ).
-        easing( TWEEN.Easing.Bounce.Out ).
+        easing( TWEEN.Easing.Circular.InOut ).
         start();
 }
 
 function animateCapsule(){
-    new TWEEN.Tween( figures[4].position ).
-        to( {x:[0,0],y:[3,1],z:[0,0]}, 2000 ).
-        interpolation( TWEEN.Interpolation.Bezier ).
-        easing( TWEEN.Easing.Bounce.Out ).
-        start();
+    new TWEEN.Tween( figures[4].rotation ).
+    to( {x:[figures[4].rotation.x,figures[4].rotation.x], y:[figures[4].rotation.y, figures[4].rotation.y], z:[figures[4].rotation.z, figures[4].rotation.z + Math.PI / 2]}, 2000 ).
+    easing( TWEEN.Easing.Bounce.Out ).
+    start();
 }
 
 function update(delta)
