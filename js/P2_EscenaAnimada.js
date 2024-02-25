@@ -188,24 +188,12 @@ function loadGUI()
 		mensaje: 'Lady Officer',
 		radioPent: 4.0,
         alambric: false,
-        ladyAnimation: function(){
-
-        },
-        cubeAnimation: function(){
-
-        },
-        esferaAnimation: function(){
-
-        },
-        coneAnimation: function(){
-
-        },
-        cylinderAnimation: function(){
-
-        },
-        capsuleAnimation: function(){
-
-        }
+        ladyAnimation: animateLady,
+        cubeAnimation: animateCube,
+        esferaAnimation: animateEsfera,
+        coneAnimation: animateCone,
+        cylinderAnimation: animateCylinder,
+        capsuleAnimation: animateCapsule
 	};
 
 	// Creacion interfaz
@@ -235,11 +223,62 @@ function loadGUI()
     })
 }
 
+//Funciones para preparar la animacion
+
+function animateLady(){
+    new TWEEN.Tween( model.position ).
+        to( {x:[0,0],y:[3,1],z:[0,0]}, 2000 ).
+        interpolation( TWEEN.Interpolation.Bezier ).
+        easing( TWEEN.Easing.Bounce.Out ).
+        start();
+}
+
+function animateCube(){
+    new TWEEN.Tween( figures[0].position ).
+        to( {x:[0,0],y:[3,1],z:[0,0]}, 2000 ).
+        interpolation( TWEEN.Interpolation.Bezier ).
+        easing( TWEEN.Easing.Bounce.Out ).
+        start();
+}
+
+function animateEsfera(){
+    new TWEEN.Tween( figures[1].position ).
+        to( {x:[0,0],y:[3,1],z:[0,0]}, 2000 ).
+        interpolation( TWEEN.Interpolation.Bezier ).
+        easing( TWEEN.Easing.Bounce.Out ).
+        start();
+}
+
+function animateCone(){
+    new TWEEN.Tween( figures[2].position ).
+        to( {x:[0,0],y:[3,1],z:[0,0]}, 2000 ).
+        interpolation( TWEEN.Interpolation.Bezier ).
+        easing( TWEEN.Easing.Bounce.Out ).
+        start();
+}
+
+function animateCylinder(){
+    new TWEEN.Tween( figures[3].position ).
+        to( {x:[0,0],y:[3,1],z:[0,0]}, 2000 ).
+        interpolation( TWEEN.Interpolation.Bezier ).
+        easing( TWEEN.Easing.Bounce.Out ).
+        start();
+}
+
+function animateCapsule(){
+    new TWEEN.Tween( figures[4].position ).
+        to( {x:[0,0],y:[3,1],z:[0,0]}, 2000 ).
+        interpolation( TWEEN.Interpolation.Bezier ).
+        easing( TWEEN.Easing.Bounce.Out ).
+        start();
+}
+
 function update(delta)
 {
     /*******************
     * TO DO: Actualizar tween
     *******************/
+    TWEEN.update();
 }
 
 function render(delta)
