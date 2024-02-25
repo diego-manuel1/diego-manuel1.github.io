@@ -57,6 +57,9 @@ function init()
     cameraControls = new OrbitControls( camera, renderer.domElement );
     cameraControls.target.set(0,1,0);
     camera.lookAt( new THREE.Vector3(0,1,0) );
+
+    // Eventos
+    renderer.domElement.addEventListener('dblclick', animate );
 }
 
 function loadScene()
@@ -276,6 +279,24 @@ function animateCapsule(){
     to( {x:[figures[4].rotation.x,figures[4].rotation.x], y:[figures[4].rotation.y, figures[4].rotation.y], z:[figures[4].rotation.z, figures[4].rotation.z + Math.PI / 2]}, 2000 ).
     easing( TWEEN.Easing.Bounce.Out ).
     start();
+}
+
+function animate(event)
+{
+    // Capturar y normalizar
+    let x= event.clientX;
+    let y = event.clientY;
+    x = ( x / window.innerWidth ) * 2 - 1;
+    y = -( y / window.innerHeight ) * 2 + 1;
+
+    // Construir el rayo y detectar la interseccion
+    const rayo = new THREE.Raycaster();
+    rayo.setFromCamera(new THREE.Vector2(x,y), camera);
+    let intersecciones = rayo.intersectObjects(model.children,true);
+
+    if( intersecciones.length > 0 ){
+        animateLady();
+    }
 }
 
 function update(delta)
