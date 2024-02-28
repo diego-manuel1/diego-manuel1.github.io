@@ -40,8 +40,23 @@ function init()
 
 function loadScene()
 {
+    loadAlley()
 }
-
+//Carga el modelo del escenario
+function loadAlley()
+{
+    glloader.load( 'models/bowlind_alley/scene.gltf', function ( gltf ) {
+        gltf.scene.position.y = 0;
+        //gltf.scene.rotation.y = -Math.PI/2;
+        gltf.scene.name = 'alley';
+        esfera.add( gltf.scene );
+    
+    }, undefined, function ( error ) {
+    
+        console.error( error );
+    
+    } );
+}
 function setupGUI()
 {
 }

@@ -42,6 +42,23 @@ function loadScene()
 {
 }
 
+function loadTable(){
+    // Importar un modelo en gltf
+   const glloader = new GLTFLoader();
+
+   glloader.load( 'models/robota/scene.gltf', function ( gltf ) {
+       gltf.scene.position.y = 1;
+       gltf.scene.rotation.y = -Math.PI/2;
+       gltf.scene.name = 'robota';
+       esfera.add( gltf.scene );
+   
+   }, undefined, function ( error ) {
+   
+       console.error( error );
+   
+   } );
+}
+
 function setupGUI()
 {
 }
