@@ -35,6 +35,7 @@ let model;
 let matfigure;
 let matesfera;
 let matsuelo;
+let matcylinder;
 // Acciones
 init();
 loadScene();
@@ -126,6 +127,7 @@ function loadScene()
                                                    shininess: 30,
                                                    envMap: texesfera });
     matsuelo = new THREE.MeshStandardMaterial({color:"rgb(150,150,150)",map:texsuelo});
+    matcylinder = new THREE.MeshBasicMaterial({color:"rgb(150,150,150)",map:texfigure});
     /*******************
     * TO DO: Misma escena que en la practica anterior
     * cambiando los materiales y activando las sombras
@@ -153,7 +155,7 @@ function loadScene()
     const cone = new THREE.Mesh( geoCone, matfigure );
     cone.castShadow = true;
     cone.receiveShadow = true;
-    const cylinder = new THREE.Mesh( geoCylinder, matfigure );
+    const cylinder = new THREE.Mesh( geoCylinder, matcylinder );
     cylinder.castShadow = true;
     cylinder.receiveShadow = true;
     const capsule = new THREE.Mesh( geoCapsule, matfigure );
@@ -311,6 +313,7 @@ function loadGUI()
             matesfera.wireframe = event.value;
             matfigure.wireframe = event.value;
             matsuelo.wireframe = event.value;
+            matcylinder.wireframe = event.value;
         }
     })
 }
