@@ -216,7 +216,22 @@ function loadScene()
     /******************
      * TO DO: Crear una habitacion de entorno
      ******************/
-
+    // Habitacion
+    const paredes = [];
+    paredes.push( new THREE.MeshBasicMaterial({side:THREE.BackSide,
+                  map: new THREE.TextureLoader().load(path+"posx.jpg")}) );
+    paredes.push( new THREE.MeshBasicMaterial({side:THREE.BackSide,
+                  map: new THREE.TextureLoader().load(path+"negx.jpg")}) );
+    paredes.push( new THREE.MeshBasicMaterial({side:THREE.BackSide,
+                  map: new THREE.TextureLoader().load(path+"posy.jpg")}) );
+    paredes.push( new THREE.MeshBasicMaterial({side:THREE.BackSide,
+                  map: new THREE.TextureLoader().load(path+"negy.jpg")}) );
+    paredes.push( new THREE.MeshBasicMaterial({side:THREE.BackSide,
+                  map: new THREE.TextureLoader().load(path+"posz.jpg")}) );
+    paredes.push( new THREE.MeshBasicMaterial({side:THREE.BackSide,
+                  map: new THREE.TextureLoader().load(path+"negz.jpg")}) );
+    const habitacion = new THREE.Mesh( new THREE.BoxGeometry(40,40,40),paredes);
+    scene.add(habitacion);
     /******************
      * TO DO: Asociar una textura de vídeo al suelo
      ******************/
