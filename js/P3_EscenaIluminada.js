@@ -286,6 +286,10 @@ function loadGUI()
 		radioPent: 4.0,
         alambric: false,
         shadow: true,
+        play: function(){video.play();},
+		pause: function(){video.pause();},
+        mute: true,
+		//colorsuelo: "rgb(150,150,150)",
         ladyAnimation: animateLady,
         cubeAnimation: animateCube,
         esferaAnimation: animateEsfera,
@@ -324,6 +328,11 @@ function loadGUI()
             }
         })
     })
+
+    const hj = gui.addFolder("Control video")
+    hj.add(effectController,"play");
+	hj.add(effectController,"pause");
+    hj.add(effectController,"mute").onChange(v=>{video.muted = v});
 
     gui.onChange( event => {
         //Si se modifica el controlador del radio, modificamos el radio del pentagono
