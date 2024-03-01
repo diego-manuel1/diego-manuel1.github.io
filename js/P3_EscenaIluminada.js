@@ -127,17 +127,14 @@ function loadScene()
                                                    shininess: 30,
                                                    envMap: texesfera });
     matsuelo = new THREE.MeshStandardMaterial({color:"rgb(150,150,150)",map:texsuelo});
-    matcylinder = new THREE.MeshBasicMaterial({color:"rgb(150,150,150)",map:texfigure});
+    matcylinder = new THREE.MeshBasicMaterial({color:"rgb(150,150,150)",map:texsuelo});
     /*******************
     * TO DO: Misma escena que en la practica anterior
     * cambiando los materiales y activando las sombras
     *******************/
     material = new THREE.MeshNormalMaterial( {wireframe:false} );
-    const suelo = new THREE.Mesh( new THREE.PlaneGeometry(10,10, 10,10), matsuelo );
-    suelo.rotation.x = -Math.PI / 2;
-    //Hacemos que suelo pueda recibir sombra.
-    suelo.receiveShadow = true;
-    scene.add(suelo);
+    //const suelo = new THREE.Mesh( new THREE.PlaneGeometry(10,10, 10,10), matsuelo );
+    
     //Creamos la geometría de las figuras
     const geoCubo = new THREE.BoxGeometry( 2,2,2 );
     const geoEsfera = new THREE.SphereGeometry( 1, 20,20 );
@@ -223,7 +220,18 @@ function loadScene()
     /******************
      * TO DO: Asociar una textura de vídeo al suelo
      ******************/
-
+    video = document.createElement('video');
+    video.src = "./videos/Pixar.mp4";
+    video.load();
+    video.muted = true;
+    video.play();
+    const texvideo = new THREE.VideoTexture(video);
+    const suelo = new THREE.Mesh(new THREE.PlaneGeometry(10,10, 10,10), 
+                                    new THREE.MeshBasicMaterial({map:texvideo}));
+    suelo.rotation.x = -Math.PI / 2;
+    //Hacemos que suelo pueda recibir sombra.
+    suelo.receiveShadow = true;
+    scene.add(suelo);
 }
 
 //Función que establece el radio del pentagono
