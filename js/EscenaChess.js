@@ -57,11 +57,11 @@ function loadChessTable(){
     // Importar un modelo en gltf
    const glloader = new GLTFLoader();
 
-   glloader.load( 'models/chessTable/scene.gltf', function ( gltf ) {
+   glloader.load( 'models/chess_board/scene.gltf', function ( gltf ) {
        gltf.scene.position.y = 0;
        gltf.scene.position.x = 0;
        gltf.scene.position.z = 0;
-       gltf.scene.name = 'chessTable';
+       gltf.scene.name = 'chessBoard';
        //Agregamos el modelo como hijo del objeto tablero.
        tableObject.add( gltf.scene );
    
