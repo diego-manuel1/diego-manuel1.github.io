@@ -32,6 +32,9 @@ let pentShape;
 let material;
 let figures;
 let model;
+let matfigure;
+let matesfera;
+let matsuelo;
 // Acciones
 init();
 loadScene();
@@ -73,6 +76,23 @@ function init()
      * - Una direccional
      * - Una focal
      *******************/
+    const ambiental = new THREE.AmbientLight(0x222222);
+    scene.add(ambiental);
+    const direccional = new THREE.DirectionalLight(0xFFFFFF,0.3);
+    direccional.position.set(-1,10,-1);
+    direccional.castShadow = true;
+    scene.add(direccional);
+    scene.add(new THREE.CameraHelper(direccional.shadow.camera));
+    const focal = new THREE.SpotLight(0xFFFFFF,0.3);
+    focal.position.set(-2,7,4);
+    focal.target.position.set(0,0,0);
+    focal.angle= Math.PI/7;
+    focal.penumbra = 0.3;
+    focal.castShadow= true;
+    focal.shadow.camera.far = 20;
+    focal.shadow.camera.fov = 80;
+    scene.add(focal);
+    scene.add(new THREE.CameraHelper(focal.shadow.camera));
 }
 
 function loadScene()
@@ -83,6 +103,15 @@ function loadScene()
      * - De superposición
      * - De entorno
      *******************/
+    const path ="./images/";
+    const texfigure = new THREE.TextureLoader().load(path+"wood512.jpg");
+    const texsuelo = new THREE.TextureLoader().load(path+"r_256.jpg");
+    texsuelo.repeat.set(4,3);
+    texsuelo.wrapS= texsuelo.wrapT = THREE.MirroredRepeatWrapping;
+    const entorno = [ path+"posx.jpg", path+"negx.jpg",
+                      path+"posy.jpg", path+"negy.jpg",
+                      path+"posz.jpg", path+"negz.jpg"];
+    const texesfera = new THREE.CubeTextureLoader().load(entorno);
 
     // Materiales
     /*******************
@@ -91,14 +120,21 @@ function loadScene()
      * - Uno basado en Phong
      * - Uno basado en Basic
      *******************/
-
+    matfigure = new THREE.MeshLambertMaterial({color:'yellow',map:texfigure});
+    matesfera = new THREE.MeshPhongMaterial({color:'white',
+                                                   specular:'gray',
+                                                   shininess: 30,
+                                                   envMap: texesfera });
+    matsuelo = new THREE.MeshStandardMaterial({color:"rgb(150,150,150)",map:texsuelo});
     /*******************
     * TO DO: Misma escena que en la practica anterior
     * cambiando los materiales y activando las sombras
     *******************/
     material = new THREE.MeshNormalMaterial( {wireframe:false} );
-    const suelo = new THREE.Mesh( new THREE.PlaneGeometry(10,10, 10,10), material );
+    const suelo = new THREE.Mesh( new THREE.PlaneGeometry(10,10, 10,10), matsuelo );
     suelo.rotation.x = -Math.PI / 2;
+    //Hacemos que suelo pueda recibir sombra.
+    suelo.receiveShadow = true;
     scene.add(suelo);
     //Creamos la geometría de las figuras
     const geoCubo = new THREE.BoxGeometry( 2,2,2 );
@@ -106,21 +142,34 @@ function loadScene()
     const geoCone = new THREE.ConeGeometry( 1, 5, 8, 1);
     const geoCylinder = new THREE.CylinderGeometry( 1, 1, 2);
     const geoCapsule = new THREE.CapsuleGeometry(1, 5, 1);
-    //Creamos la mesh con la geometría y el material
+    //Creamos la mesh con la geometría y el material y hacemos que produzcan y reciban sombras.
     
-    const cubo = new THREE.Mesh( geoCubo, material );
-    const esfera = new THREE.Mesh( geoEsfera, material );
-    const cone = new THREE.Mesh( geoCone, material );
-    const cylinder = new THREE.Mesh( geoCylinder, material );
-    const capsule = new THREE.Mesh( geoCapsule, material );
+    const cubo = new THREE.Mesh( geoCubo, matfigure );
+    cubo.castShadow = true;
+    cubo.receiveShadow = true;
+    const esfera = new THREE.Mesh( geoEsfera, matesfera );
+    esfera.castShadow = true;
+    esfera.receiveShadow = true;
+    const cone = new THREE.Mesh( geoCone, matfigure );
+    cone.castShadow = true;
+    cone.receiveShadow = true;
+    const cylinder = new THREE.Mesh( geoCylinder, matfigure );
+    cylinder.castShadow = true;
+    cylinder.receiveShadow = true;
+    const capsule = new THREE.Mesh( geoCapsule, matfigure );
+    capsule.castShadow = true;
+    capsule.receiveShadow = true;
     figures = [cubo, esfera, cone, cylinder, capsule];
     //Creamos la forma del pentagono y posicionamos sobre sus vertices a las figuras
     pentShape = new THREE.Shape();
     const pentRadius = 4;
     stablishPentRadius(pentRadius)
-    //Creamos la geometría del pentagono
+    //Creamos la geometría del pentagono (como ShapeGeometry no tiene volumen, puede recibir sombras pero no producirlas)
     const geoPent = new THREE.ShapeGeometry( pentShape );
-    const pent = new THREE.Mesh( geoPent, material );
+    const pent = new THREE.Mesh( geoPent, matfigure );
+    //Hacemos que pent pueda producir y recibir sombras.
+    pent.castShadow = true;
+    pent.receiveShadow = true;
     //Hacemos hijos del mesh del pentagono al resto de mesh y los rotamos para que sean paralelos al pentagono
     for(let i = 0; i < figures.length; i++){
         pent.add(figures[i]);
@@ -134,6 +183,9 @@ function loadScene()
     pentObject.position.y=1;
     pentObject.position.z=0;
     pentObject.add(pent);
+    //PentObject puede producir sombra y recibir sombra.
+    pentObject.castShadow = true;
+    pentObject.receiveShadow = true;
     pentObject.add( new THREE.AxesHelper(1) );
     //Agregamos el objeto a la escena
     scene.add(pentObject);
@@ -147,6 +199,13 @@ function loadScene()
             gltf.scene.scale.z = gltf.scene.scale.z * 2;
             console.log("LADY OFFICER");
             model = gltf.scene;
+            //La chica produce y recibe sombras.
+            gltf.scene.traverse(ob=>{
+                if(ob.isObject3D) {
+                    ob.castShadow = true;
+                    ob.receiveShadow = true;
+                }
+            })
             console.log(gltf);
         
         }, undefined, function ( error ) {
@@ -201,6 +260,7 @@ function loadGUI()
 		mensaje: 'Lady Officer',
 		radioPent: 4.0,
         alambric: false,
+        shadow: true,
         ladyAnimation: animateLady,
         cubeAnimation: animateCube,
         esferaAnimation: animateEsfera,
@@ -224,6 +284,22 @@ function loadGUI()
     h.add(effectController, "cylinderAnimation").name("Activar animación cilindro");
     h.add(effectController, "capsuleAnimation").name("Activar animación capsula");
 
+    const hi = gui.addFolder("Control sombras")
+    hi.add(effectController, "shadow").name("Cast shadow")
+    .onChange( value =>
+    {
+        //Activamos/desactivamos la sombra de las figuras
+        for(let i = 0; i < 5; i++){
+            figures[i].castShadow = value;
+        }
+        //Activamos/desactivamos la sombra de la chica
+        model.traverse(ob=>{
+            if(ob.isObject3D) {
+                ob.castShadow = value;
+            }
+        })
+    })
+
     gui.onChange( event => {
         //Si se modifica el controlador del radio, modificamos el radio del pentagono
         if(event.property == "radioPent"){
@@ -232,6 +308,9 @@ function loadGUI()
         //Si se modifica el check box del controlador del matarial, modificamos el material
         if(event.property == "alambric"){
             material.wireframe = event.value;
+            matesfera.wireframe = event.value;
+            matfigure.wireframe = event.value;
+            matsuelo.wireframe = event.value;
         }
     })
 }
