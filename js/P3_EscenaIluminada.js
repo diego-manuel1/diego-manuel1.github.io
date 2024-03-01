@@ -329,7 +329,7 @@ function loadGUI()
         })
     })
     hi.addColor(effectController, "colorcubo")
-     .name("Color cubo")
+     .name("Color cubo, pentagono, cono y cilindro")
      .onChange(c=>{figures[0].material.setValues({color:c})});
 
     const hj = gui.addFolder("Control video")
