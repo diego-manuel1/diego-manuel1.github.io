@@ -289,7 +289,7 @@ function loadGUI()
         play: function(){video.play();},
 		pause: function(){video.pause();},
         mute: true,
-		//colorsuelo: "rgb(150,150,150)",
+		colorcubo: "rgb(150,150,150)",
         ladyAnimation: animateLady,
         cubeAnimation: animateCube,
         esferaAnimation: animateEsfera,
@@ -313,7 +313,7 @@ function loadGUI()
     h.add(effectController, "cylinderAnimation").name("Activar animación cilindro");
     h.add(effectController, "capsuleAnimation").name("Activar animación capsula");
 
-    const hi = gui.addFolder("Control sombras")
+    const hi = gui.addFolder("Control color y sombras")
     hi.add(effectController, "shadow").name("Cast shadow")
     .onChange( value =>
     {
@@ -328,6 +328,9 @@ function loadGUI()
             }
         })
     })
+    hi.addColor(effectController, "colorcubo")
+     .name("Color cubo")
+     .onChange(c=>{figures[0].material.setValues({color:c})});
 
     const hj = gui.addFolder("Control video")
     hj.add(effectController,"play");
