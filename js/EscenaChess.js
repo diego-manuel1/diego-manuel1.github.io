@@ -10,6 +10,7 @@ let renderer, scene, camera;
 let cameraControls, effectController;
 // Otras globales
 let tableObject;
+let boardObject;
 
 // Acciones
 init();
@@ -37,23 +38,61 @@ function init()
     camera.lookAt( new THREE.Vector3(0,1,0) );
     // Eventos
     //renderer.domElement.addEventListener('dblclick', animate );
+    //Añadimos luz ambiental
+    const ambiental = new THREE.AmbientLight(0x404040, 1);
+    scene.add(ambiental);
 }
 
 function loadScene()
 {
-    //Creamos el objeto del tablero de ajedrez.
+    //Creamos los objetos del tablero de ajedrez y la mesa.
     tableObject = new THREE.Object3D();
-    loadChessTable();
+    boardObject = new THREE.Object3D();
+    //Centramos la mesa
     tableObject.position.x = 0;
     tableObject.position.y = 0;
     tableObject.position.z = 0;
     //Agregamos el objeto tablero a la escena.
+    //scene.add(tableObject);
+    //Cargamos la mesa y el tablero
+    loadTable();
+    loadChessboard();
+    //Hacemos al tablero hijo de la mesa.
+    tableObject.add(boardObject);
     scene.add(tableObject);
+    scene.add(boardObject);
+    //Reducimos la escala del tablero
+    boardObject.scale.x = boardObject.scale.x*0.05
+    boardObject.scale.y = boardObject.scale.y*0.05
+    boardObject.scale.z = boardObject.scale.z*0.05
+    //Movemos el tablero encima de la mesa.
+    boardObject.position.y = 3.3
     //Añadimos ejes a la escena.
     scene.add( new THREE.AxesHelper(3) );
 }
 
-function loadChessTable(){
+function loadTable()
+{
+    // Importar un modelo en gltf
+    const glloader = new GLTFLoader();
+
+     glloader.load( 'models/table/scene.gltf', function ( gltf ) {
+     gltf.scene.position.y = 0;
+     gltf.scene.position.x = 0;
+     gltf.scene.position.z = 0;
+     gltf.scene.name = 'table';
+     const table = gltf.scene;
+     //Agregamos el modelo de la mesa al objeto mesa.
+     tableObject.add(table);
+ 
+    }, undefined, function ( error ) {
+ 
+     console.error( error );
+ 
+     } );
+}
+
+function loadChessboard(){
     // Importar un modelo en gltf
    const glloader = new GLTFLoader();
 
@@ -62,8 +101,9 @@ function loadChessTable(){
        gltf.scene.position.x = 0;
        gltf.scene.position.z = 0;
        gltf.scene.name = 'chessBoard';
+       const board = gltf.scene;
        //Agregamos el modelo como hijo del objeto tablero.
-       tableObject.add( gltf.scene );
+       boardObject.add( board );
    
    }, undefined, function ( error ) {
    
