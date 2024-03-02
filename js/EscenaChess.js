@@ -45,6 +45,11 @@ function init()
 
 function loadScene()
 {
+    //Creamos el material del suelo
+    const materialSuelo = new THREE.MeshBasicMaterial( { color: 'yellow', wireframe: true } );
+    const suelo = new THREE.Mesh( new THREE.PlaneGeometry(10,10, 10,10), materialSuelo );
+    suelo.rotation.x = -Math.PI / 2;
+    scene.add(suelo);
     //Creamos los objetos del tablero de ajedrez y la mesa.
     tableObject = new THREE.Object3D();
     boardObject = new THREE.Object3D();
