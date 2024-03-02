@@ -72,6 +72,8 @@ function loadScene()
     boardObject.scale.z = boardObject.scale.z*0.05
     //Movemos el tablero encima de la mesa.
     boardObject.position.y = 3.3
+    //Cargamos las piezas del tablero
+    loadPieces()
     //Añadimos ejes a la escena.
     scene.add( new THREE.AxesHelper(3) );
 }
@@ -117,6 +119,30 @@ function loadChessboard(){
    } );
 }
 
+function loadPieces(){
+    const glloader = new GLTFLoader();
+
+   glloader.load( 'models/king/scene.gltf', function ( gltf ) {
+       gltf.scene.position.y = 3.37;
+       gltf.scene.position.x = 0;
+       gltf.scene.position.z = 0;
+       //Establecemos la escala de 
+       gltf.scene.scale.x = gltf.scene.scale.x*0.1
+       gltf.scene.scale.y = gltf.scene.scale.y*0.1
+       gltf.scene.scale.z = gltf.scene.scale.z*0.1
+       gltf.scene.name = 'king';
+       const king = gltf.scene;
+       //Agregamos el modelo como hijo del objeto tablero.
+       //boardObject.add( king );
+       scene.add(king);
+       console.log("Número de hijos de king: " + king.children.length)
+   
+   }, undefined, function ( error ) {
+   
+       console.error( error );
+   
+   } );
+}
 function setupGUI()
 {
 }
