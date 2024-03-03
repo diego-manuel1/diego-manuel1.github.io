@@ -258,6 +258,46 @@ function loadPieces(){
             console.error( error );
     
         } );
+
+    glloader.load( 'models/rook/scene.gltf', function ( gltf ) {
+        gltf.scene.position.y = 1.5;
+        gltf.scene.position.x = 21;
+        gltf.scene.position.z = 21;
+        //Establecemos la escala del rey
+        gltf.scene.scale.x = gltf.scene.scale.x*3
+        gltf.scene.scale.y = gltf.scene.scale.y*3
+        gltf.scene.scale.z = gltf.scene.scale.z*3
+        gltf.scene.name = 'rook1';
+        const rook1 = gltf.scene;
+        //Agregamos el modelo como hijo del objeto tablero.
+        //boardObject.add( king );
+        boardObject.add( rook1 );
+    
+    }, undefined, function ( error ) {
+    
+        console.error( error );
+    
+    } );
+
+    glloader.load( 'models/rook/scene.gltf', function ( gltf ) {
+        gltf.scene.position.y = 1.5;
+        gltf.scene.position.x = -21;
+        gltf.scene.position.z = 21;
+        //Establecemos la escala del rey
+        gltf.scene.scale.x = gltf.scene.scale.x*3
+        gltf.scene.scale.y = gltf.scene.scale.y*3
+        gltf.scene.scale.z = gltf.scene.scale.z*3
+        gltf.scene.name = 'rook2';
+        const rook2 = gltf.scene;
+        //Agregamos el modelo como hijo del objeto tablero.
+        //boardObject.add( king );
+        boardObject.add( rook2 );
+    
+    }, undefined, function ( error ) {
+    
+        console.error( error );
+    
+    } );
 }
 function setupGUI()
 {
