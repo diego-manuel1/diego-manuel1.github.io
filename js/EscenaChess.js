@@ -41,6 +41,23 @@ function init()
     //Añadimos luz ambiental
     const ambiental = new THREE.AmbientLight(0x404040, 1);
     scene.add(ambiental);
+    //Añadimos luz direccional
+    const direccional = new THREE.DirectionalLight(0xFFFFFF,0.3);
+    direccional.position.set(-1,10,-1);
+    direccional.castShadow = true;
+    scene.add(direccional);
+    scene.add(new THREE.CameraHelper(direccional.shadow.camera));
+    //Añadimos luz focal
+    const focal = new THREE.SpotLight(0xFFFFFF,0.3);
+    focal.position.set(-2,30,4);
+    focal.target.position.set(0,0,0);
+    focal.angle= Math.PI/7;
+    focal.penumbra = 0.3;
+    focal.castShadow= true;
+    focal.shadow.camera.far = 20;
+    focal.shadow.camera.fov = 80;
+    scene.add(focal);
+    scene.add(new THREE.CameraHelper(focal.shadow.camera));
 }
 
 function loadScene()
