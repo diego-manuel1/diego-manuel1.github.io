@@ -119,7 +119,11 @@ function loadChessboard(){
    
    } );
 }
-
+/***
+ * Límites del tablero:
+ * x=[-21,21]
+ * z=[-21,21]
+ */
 function loadPieces(){
     const glloader = new GLTFLoader();
 
