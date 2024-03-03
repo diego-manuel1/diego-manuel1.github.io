@@ -48,6 +48,7 @@ function loadScene()
     //Creamos el material del suelo
     const materialSuelo = new THREE.MeshBasicMaterial( { color: 'yellow', wireframe: true } );
     const suelo = new THREE.Mesh( new THREE.PlaneGeometry(10,10, 10,10), materialSuelo );
+    suelo.receiveShadow = true;
     suelo.rotation.x = -Math.PI / 2;
     scene.add(suelo);
     //Creamos los objetos del tablero de ajedrez y la mesa.
@@ -91,6 +92,12 @@ function loadTable()
      const table = gltf.scene;
      //Agregamos el modelo de la mesa al objeto mesa.
      tableObject.add(table);
+     gltf.scene.traverse(ob=>{
+        if(ob.isObject3D){
+             ob.castShadow = true;
+             ob.receiveShadow = true;
+        }
+    })
  
     }, undefined, function ( error ) {
  
@@ -112,6 +119,12 @@ function loadChessboard(){
        const board = gltf.scene;
        //Agregamos el modelo como hijo del objeto tablero.
        boardObject.add( board );
+       gltf.scene.traverse(ob=>{
+        if(ob.isObject3D){
+             ob.castShadow = true;
+             ob.receiveShadow = true;
+        }
+        })
    
    }, undefined, function ( error ) {
    
@@ -140,6 +153,12 @@ function loadPieces(){
        //Agregamos el modelo como hijo del objeto tablero.
        //boardObject.add( king );
        boardObject.add( king );
+       gltf.scene.traverse(ob=>{
+        if(ob.isObject3D){
+             ob.castShadow = true;
+             ob.receiveShadow = true;
+        }
+        })
    
    }, undefined, function ( error ) {
    
@@ -160,7 +179,12 @@ function loadPieces(){
     //Agregamos el modelo como hijo del objeto tablero.
     //boardObject.add( king );
     boardObject.add( queen );
-
+    gltf.scene.traverse(ob=>{
+        if(ob.isObject3D){
+             ob.castShadow = true;
+             ob.receiveShadow = true;
+        }
+    })
     }, undefined, function ( error ) {
 
         console.error( error );
@@ -180,7 +204,12 @@ function loadPieces(){
         //Agregamos el modelo como hijo del objeto tablero.
         //boardObject.add( king );
         boardObject.add( bishop1 );
-    
+        gltf.scene.traverse(ob=>{
+            if(ob.isObject3D){
+                 ob.castShadow = true;
+                 ob.receiveShadow = true;
+            }
+        })
     }, undefined, function ( error ) {
     
             console.error( error );
@@ -200,7 +229,12 @@ function loadPieces(){
         //Agregamos el modelo como hijo del objeto tablero.
         //boardObject.add( king );
         boardObject.add( bishop2 );
-    
+        gltf.scene.traverse(ob=>{
+            if(ob.isObject3D){
+                 ob.castShadow = true;
+                 ob.receiveShadow = true;
+            }
+        })
     }, undefined, function ( error ) {
     
             console.error( error );
@@ -227,7 +261,12 @@ function loadPieces(){
     //Agregamos el modelo como hijo del objeto tablero.
     //scene.add(horseObject);
     boardObject.add( horseObject );
-    
+    gltf.scene.traverse(ob=>{
+        if(ob.isObject3D){
+             ob.castShadow = true;
+             ob.receiveShadow = true;
+        }
+    })
 
     }, undefined, function ( error ) {
 
@@ -255,7 +294,12 @@ function loadPieces(){
         //Agregamos el modelo como hijo del objeto tablero.
         //scene.add(horseObject);
         boardObject.add( horseObject );
-        
+        gltf.scene.traverse(ob=>{
+            if(ob.isObject3D){
+                 ob.castShadow = true;
+                 ob.receiveShadow = true;
+            }
+        })
     
         }, undefined, function ( error ) {
     
@@ -276,7 +320,13 @@ function loadPieces(){
         //Agregamos el modelo como hijo del objeto tablero.
         //boardObject.add( king );
         boardObject.add( rook1 );
-    
+        gltf.scene.traverse(ob=>{
+            if(ob.isObject3D){
+                 ob.castShadow = true;
+                 ob.receiveShadow = true;
+            }
+        })
+
     }, undefined, function ( error ) {
     
         console.error( error );
@@ -296,7 +346,13 @@ function loadPieces(){
         //Agregamos el modelo como hijo del objeto tablero.
         //boardObject.add( king );
         boardObject.add( rook2 );
-    
+        gltf.scene.traverse(ob=>{
+            if(ob.isObject3D){
+                 ob.castShadow = true;
+                 ob.receiveShadow = true;
+            }
+        })
+
     }, undefined, function ( error ) {
     
         console.error( error );
@@ -319,7 +375,12 @@ function loadPieces(){
             //Agregamos el modelo como hijo del objeto tablero.
             //boardObject.add( king );
             boardObject.add( pawn );
-        
+            gltf.scene.traverse(ob=>{
+                if(ob.isObject3D){
+                     ob.castShadow = true;
+                     ob.receiveShadow = true;
+                }
+            })
         }, undefined, function ( error ) {
         
             console.error( error );
