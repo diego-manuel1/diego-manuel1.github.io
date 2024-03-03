@@ -45,8 +45,12 @@ function init()
 
 function loadScene()
 {
+    //Creamos las texturas
+    const texsuelo = new THREE.TextureLoader().load("images/chess/Cement/Cement.jpg");
+
     //Creamos el material del suelo
-    const materialSuelo = new THREE.MeshBasicMaterial( { color: 'yellow', wireframe: true } );
+    //const materialSuelo = new THREE.MeshBasicMaterial( { color: 'yellow', wireframe: true } );
+    const materialSuelo = new THREE.MeshStandardMaterial({color:"rgb(150,150,150)",map:texsuelo});
     const suelo = new THREE.Mesh( new THREE.PlaneGeometry(10,10, 10,10), materialSuelo );
     suelo.receiveShadow = true;
     suelo.rotation.x = -Math.PI / 2;
@@ -75,6 +79,23 @@ function loadScene()
     boardObject.position.y = 3.3
     //Cargamos las piezas del tablero
     loadPieces()
+    // Habitacion
+    const path ="images/chess/Yokohama/"
+    const paredes = [];
+    paredes.push( new THREE.MeshBasicMaterial({side:THREE.BackSide,
+                  map: new THREE.TextureLoader().load(path+"posx.jpg")}) );
+    paredes.push( new THREE.MeshBasicMaterial({side:THREE.BackSide,
+                  map: new THREE.TextureLoader().load(path+"negx.jpg")}) );
+    paredes.push( new THREE.MeshBasicMaterial({side:THREE.BackSide,
+                  map: new THREE.TextureLoader().load(path+"posy.jpg")}) );
+    paredes.push( new THREE.MeshBasicMaterial({side:THREE.BackSide,
+                  map: new THREE.TextureLoader().load(path+"negy.jpg")}) );
+    paredes.push( new THREE.MeshBasicMaterial({side:THREE.BackSide,
+                  map: new THREE.TextureLoader().load(path+"posz.jpg")}) );
+    paredes.push( new THREE.MeshBasicMaterial({side:THREE.BackSide,
+                  map: new THREE.TextureLoader().load(path+"negz.jpg")}) );
+    const habitacion = new THREE.Mesh( new THREE.BoxGeometry(40,40,40),paredes);
+    scene.add(habitacion);
     //Añadimos ejes a la escena.
     scene.add( new THREE.AxesHelper(3) );
 }
