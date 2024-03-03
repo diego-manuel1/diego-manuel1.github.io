@@ -298,9 +298,34 @@ function loadPieces(){
         console.error( error );
     
     } );
+
+    //Cargamos los peones
+
+    for(let i = 0; i < 8; i++){
+        glloader.load( 'models/pawn/scene.gltf', function ( gltf ) {
+            gltf.scene.position.y = 1.5;
+            gltf.scene.position.x = -21+i*6;
+            gltf.scene.position.z = 15;
+            //Establecemos la escala del rey
+            gltf.scene.scale.x = gltf.scene.scale.x*3
+            gltf.scene.scale.y = gltf.scene.scale.y*3
+            gltf.scene.scale.z = gltf.scene.scale.z*3
+            gltf.scene.name = ('pawn'+(i+1));
+            const pawn = gltf.scene;
+            //Agregamos el modelo como hijo del objeto tablero.
+            //boardObject.add( king );
+            boardObject.add( pawn );
+        
+        }, undefined, function ( error ) {
+        
+            console.error( error );
+        
+        } );
+    }
 }
 function setupGUI()
 {
+    
 }
 
 function update()
