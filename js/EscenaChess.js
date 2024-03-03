@@ -125,8 +125,8 @@ function loadPieces(){
 
    glloader.load( 'models/king/scene.gltf', function ( gltf ) {
        gltf.scene.position.y = 1.5;
-       gltf.scene.position.x = 0;
-       gltf.scene.position.z = 0;
+       gltf.scene.position.x = 3;
+       gltf.scene.position.z = 21;
        //Establecemos la escala del rey
        gltf.scene.scale.x = gltf.scene.scale.x*3
        gltf.scene.scale.y = gltf.scene.scale.y*3
@@ -142,6 +142,26 @@ function loadPieces(){
        console.error( error );
    
    } );
+
+   glloader.load( 'models/queen/scene.gltf', function ( gltf ) {
+    gltf.scene.position.y = 1.5;
+    gltf.scene.position.x = -3;
+    gltf.scene.position.z = 21;
+    //Establecemos la escala del rey
+    gltf.scene.scale.x = gltf.scene.scale.x*3
+    gltf.scene.scale.y = gltf.scene.scale.y*3
+    gltf.scene.scale.z = gltf.scene.scale.z*3
+    gltf.scene.name = 'queen';
+    const queen = gltf.scene;
+    //Agregamos el modelo como hijo del objeto tablero.
+    //boardObject.add( king );
+    boardObject.add( queen );
+
+    }, undefined, function ( error ) {
+
+        console.error( error );
+
+    } );
 
    glloader.load( 'models/horse/scene.gltf', function ( gltf ) {
     //Como el centro del modelo del caballo está un poco desplazado, creamos un horseObject que será el padre del caballo para facilitar el manejo de la posición del caballo
