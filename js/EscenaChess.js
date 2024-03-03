@@ -67,7 +67,7 @@ function loadScene()
 
     //Creamos el material del suelo
     //const materialSuelo = new THREE.MeshBasicMaterial( { color: 'yellow', wireframe: true } );
-    const materialSuelo = new THREE.MeshStandardMaterial({color:"rgb(150,150,150)",map:texsuelo});
+    const materialSuelo = new THREE.MeshStandardMaterial({map:texsuelo});
     const suelo = new THREE.Mesh( new THREE.PlaneGeometry(10,10, 10,10), materialSuelo );
     suelo.receiveShadow = true;
     suelo.rotation.x = -Math.PI / 2;
