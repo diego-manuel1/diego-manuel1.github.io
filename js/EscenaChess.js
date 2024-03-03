@@ -206,9 +206,9 @@ function loadPieces(){
    glloader.load( 'models/horse/scene.gltf', function ( gltf ) {
     //Como el centro del modelo del caballo está un poco desplazado, creamos un horseObject que será el padre del caballo para facilitar el manejo de la posición del caballo
     const horseObject = new THREE.Object3D();
-    horseObject.position.x = 0;
+    horseObject.position.x = 15;
     horseObject.position.y = 0;
-    horseObject.position.z = 0;
+    horseObject.position.z = 21;
     //Desplazamos el modelo del caballo al centro (recordemos que su centro esta desplazado), para que al añadirlo como hijo al horseObject, el centro del horseObject esté en el sitio donde debería encontrarse el centro del modelo del caballo
     gltf.scene.position.y = 1.2;
     gltf.scene.position.x = -2;
@@ -217,19 +217,47 @@ function loadPieces(){
     gltf.scene.scale.x = gltf.scene.scale.x*0.13
     gltf.scene.scale.y = gltf.scene.scale.y*0.13
     gltf.scene.scale.z = gltf.scene.scale.z*0.13
-    gltf.scene.name = 'horse';
-    const horse = gltf.scene;
-    horseObject.add(horse)
+    gltf.scene.name = 'horse1';
+    const horse1 = gltf.scene;
+    horseObject.add(horse1)
     //Agregamos el modelo como hijo del objeto tablero.
     //scene.add(horseObject);
     boardObject.add( horseObject );
     
 
-}, undefined, function ( error ) {
+    }, undefined, function ( error ) {
 
-    console.error( error );
+        console.error( error );
 
-} );
+    } );
+
+    glloader.load( 'models/horse/scene.gltf', function ( gltf ) {
+        //Como el centro del modelo del caballo está un poco desplazado, creamos un horseObject que será el padre del caballo para facilitar el manejo de la posición del caballo
+        const horseObject = new THREE.Object3D();
+        horseObject.position.x = -15;
+        horseObject.position.y = 0;
+        horseObject.position.z = 21;
+        //Desplazamos el modelo del caballo al centro (recordemos que su centro esta desplazado), para que al añadirlo como hijo al horseObject, el centro del horseObject esté en el sitio donde debería encontrarse el centro del modelo del caballo
+        gltf.scene.position.y = 1.2;
+        gltf.scene.position.x = -2;
+        gltf.scene.position.z = -5.5;
+        //Establecemos la escala del caballo
+        gltf.scene.scale.x = gltf.scene.scale.x*0.13
+        gltf.scene.scale.y = gltf.scene.scale.y*0.13
+        gltf.scene.scale.z = gltf.scene.scale.z*0.13
+        gltf.scene.name = 'horse2';
+        const horse2 = gltf.scene;
+        horseObject.add(horse2)
+        //Agregamos el modelo como hijo del objeto tablero.
+        //scene.add(horseObject);
+        boardObject.add( horseObject );
+        
+    
+        }, undefined, function ( error ) {
+    
+            console.error( error );
+    
+        } );
 }
 function setupGUI()
 {
