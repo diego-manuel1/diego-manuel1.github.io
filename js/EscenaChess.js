@@ -436,9 +436,9 @@ function movePiece(){
     let oldPositionY = pawn.position.y;
     let oldPositionZ = pawn.position.z;
     new TWEEN.Tween( pawn.position ).
-        to( {x:[oldPositionX,oldPositionX+6],y:[oldPositionY,5,oldPositionY],z:[oldPositionZ,oldPositionZ-6]}, 2000 ).
+        to( {x:[oldPositionX,oldPositionX+6],y:[oldPositionY,30,oldPositionY],z:[oldPositionZ,oldPositionZ-6]}, 2000 ).
         interpolation( TWEEN.Interpolation.Bezier ).
-        easing( TWEEN.Easing.Bounce.Out ).
+        easing( TWEEN.Easing.Cubic.InOut ).
         start();
 }
 function setupGUI()
