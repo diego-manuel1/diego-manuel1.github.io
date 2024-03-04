@@ -63,8 +63,8 @@ function init()
 function loadScene()
 {
     //Creamos las texturas
-    const texsuelo = new THREE.TextureLoader().load("images/chess/Cement/Cement.jpg");
-
+    //const texsuelo = new THREE.TextureLoader().load("images/chess/Cement/Cement.jpg");
+    const texsuelo = new THREE.TextureLoader().load("images/chess/baldosas.jpg");
     //Creamos el material del suelo
     //const materialSuelo = new THREE.MeshBasicMaterial( { color: 'yellow', wireframe: true } );
     const materialSuelo = new THREE.MeshStandardMaterial({map:texsuelo});
