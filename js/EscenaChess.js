@@ -112,6 +112,9 @@ function loadScene()
     paredes.push( new THREE.MeshBasicMaterial({side:THREE.BackSide,
                   map: new THREE.TextureLoader().load(path+"negz.jpg")}) );
     const habitacion = new THREE.Mesh( new THREE.BoxGeometry(40,40,40),paredes);
+    /*habitacion.position.x = 0;
+    habitacion.position.y = 10;
+    habitacion.position.z = 0;*/
     scene.add(habitacion);
     //Añadimos ejes a la escena.
     scene.add( new THREE.AxesHelper(3) );
@@ -426,9 +429,32 @@ function loadPieces(){
         } );
     }
 }
+//Función que inicia la animación de la pieza seleccionada.
+function movePiece(){
+    let pawn = scene.getObjectByName('pawn1');
+    let oldPositionX = pawn.position.x;
+    let oldPositionY = pawn.position.y;
+    let oldPositionZ = pawn.position.z;
+    new TWEEN.Tween( pawn.position ).
+        to( {x:[oldPositionX,oldPositionX+6],y:[oldPositionY,5,oldPositionY],z:[oldPositionZ,oldPositionZ-6]}, 2000 ).
+        interpolation( TWEEN.Interpolation.Bezier ).
+        easing( TWEEN.Easing.Bounce.Out ).
+        start();
+}
 function setupGUI()
 {
-    
+    const effectController = {
+		mensaje: 'Prueba animación',
+        play: function(){movePiece();}
+    }
+
+    // Creacion interfaz
+	const gui = new GUI();
+
+	// Construccion del menu
+	const h = gui.addFolder("Prueba animaciones");
+    h.add(effectController, "mensaje").name("Aplicacion");
+    h.add(effectController, "play").name("Probar animación de piezas");
 }
 
 function update()
