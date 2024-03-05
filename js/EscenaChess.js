@@ -495,8 +495,6 @@ function animate(event)
         }
     }
     else if(selectingNewPosition && !movingPiece){
-        //De momento ponemos al primer peón como pieza seleccionada.
-        //selectedPiece = scene.getObjectByName('pawn1');
         let intersecciones = rayo.intersectObjects(boardObject.children,true);
         if( intersecciones.length > 0 ){
             let selectedPosition = intersecciones[0].point;
@@ -510,6 +508,11 @@ function animate(event)
             // Aplica la matriz de transformación inversa al punto global
             selectedPosition = selectedPosition.clone().applyMatrix4(matrizInversa);
 
+            //Comprobamos que no exceda los límites del tablero (las piezas no pueden colocarse en los bordes del tablero) y corregimos la posición
+            if(selectedPosition.x > 21) selectedPosition.x = 21
+            else if(selectedPosition.x < -21) selectedPosition.x = -21
+            if(selectedPosition.z > 21) selectedPosition.z = 21
+            else if(selectedPosition.z < -21) selectedPosition.z = -21
             console.log("X: "+selectedPosition.x+"; Z: "+selectedPosition.z);
             moveSelectedPiece(selectedPosition.x, selectedPosition.z)
         }
