@@ -499,7 +499,17 @@ function animate(event)
         //selectedPiece = scene.getObjectByName('pawn1');
         let intersecciones = rayo.intersectObjects(boardObject.children,true);
         if( intersecciones.length > 0 ){
-            const selectedPosition = intersecciones[0].point;
+            let selectedPosition = intersecciones[0].point;
+            //Pasamos el punto seleccionado del Sistema de referencia global al sistema de referencia local del boardObject
+            // Obtén la matriz de transformación global del objeto
+            const matrizGlobal = boardObject.matrixWorld;
+
+            // Invierte la matriz de transformación global
+            const matrizInversa = new THREE.Matrix4().getInverse(matrizGlobal);
+
+            // Aplica la matriz de transformación inversa al punto global
+            selectedPosition = selectedPosition.clone().applyMatrix4(matrizInversa);
+
             console.log("X: "+selectedPosition.x+"; Z: "+selectedPosition.z);
             moveSelectedPiece(selectedPosition.x, selectedPosition.z)
         }
