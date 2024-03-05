@@ -529,6 +529,7 @@ function moveSelectedPiece(newPositionX, newPositionZ){
         to( {x:[oldPositionX,newPositionX],y:[oldPositionY,30,oldPositionY],z:[oldPositionZ,newPositionZ]}, 2000 ).
         interpolation( TWEEN.Interpolation.Bezier ).
         easing( TWEEN.Easing.Cubic.InOut ).
+        //Cuando finalice la animación se indicará que ya no se está moviendo una pieza y se habilitará la selección de una nueva pieza para mover.
         onComplete(()=>{
             selectingNewPosition = false;
             movingPiece = false;
