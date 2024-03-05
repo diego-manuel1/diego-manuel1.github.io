@@ -11,6 +11,14 @@ let cameraControls, effectController;
 // Otras globales
 let tableObject;
 let boardObject;
+//Array con todas las piezas de ajedrez
+let chessPieces = [];
+// Variable que indica si se ha seleccionado una pieza de ajedrez y se está seleccionando una nueva posición.
+let selectingNewPosition = false;
+// Variable que indica si se está moviendo en ese momento una pieza de ajedrez.
+let movingPiece = false;
+// Pieza seleccionada para mover.
+let selectedPiece;
 
 // Acciones
 init();
@@ -37,7 +45,7 @@ function init()
     cameraControls.target.set(0,1,0);
     camera.lookAt( new THREE.Vector3(0,1,0) );
     // Eventos
-    //renderer.domElement.addEventListener('dblclick', animate );
+    renderer.domElement.addEventListener('dblclick', animate );
     //Añadimos luz ambiental
     const ambiental = new THREE.AmbientLight(0x404040, 1);
     scene.add(ambiental);
@@ -194,6 +202,7 @@ function loadPieces(){
        //Agregamos el modelo como hijo del objeto tablero.
        //boardObject.add( king );
        boardObject.add( king );
+       chessPieces.push(king);
        gltf.scene.traverse(ob=>{
         if(ob.isObject3D){
              ob.castShadow = true;
@@ -218,8 +227,8 @@ function loadPieces(){
     gltf.scene.name = 'queen';
     const queen = gltf.scene;
     //Agregamos el modelo como hijo del objeto tablero.
-    //boardObject.add( king );
     boardObject.add( queen );
+    chessPieces.push(queen);
     gltf.scene.traverse(ob=>{
         if(ob.isObject3D){
              ob.castShadow = true;
@@ -245,6 +254,7 @@ function loadPieces(){
         //Agregamos el modelo como hijo del objeto tablero.
         //boardObject.add( king );
         boardObject.add( bishop1 );
+        chessPieces.push(bishop1);
         gltf.scene.traverse(ob=>{
             if(ob.isObject3D){
                  ob.castShadow = true;
@@ -270,6 +280,7 @@ function loadPieces(){
         //Agregamos el modelo como hijo del objeto tablero.
         //boardObject.add( king );
         boardObject.add( bishop2 );
+        chessPieces.push(bishop2);
         gltf.scene.traverse(ob=>{
             if(ob.isObject3D){
                  ob.castShadow = true;
@@ -302,6 +313,7 @@ function loadPieces(){
     //Agregamos el modelo como hijo del objeto tablero.
     //scene.add(horseObject);
     boardObject.add( horseObject );
+    chessPieces.push(horseObject);
     gltf.scene.traverse(ob=>{
         if(ob.isObject3D){
              ob.castShadow = true;
@@ -335,6 +347,7 @@ function loadPieces(){
         //Agregamos el modelo como hijo del objeto tablero.
         //scene.add(horseObject);
         boardObject.add( horseObject );
+        chessPieces.push(horseObject);
         gltf.scene.traverse(ob=>{
             if(ob.isObject3D){
                  ob.castShadow = true;
@@ -361,6 +374,7 @@ function loadPieces(){
         //Agregamos el modelo como hijo del objeto tablero.
         //boardObject.add( king );
         boardObject.add( rook1 );
+        chessPieces.push(rook1);
         gltf.scene.traverse(ob=>{
             if(ob.isObject3D){
                  ob.castShadow = true;
@@ -387,6 +401,7 @@ function loadPieces(){
         //Agregamos el modelo como hijo del objeto tablero.
         //boardObject.add( king );
         boardObject.add( rook2 );
+        chessPieces.push(rook2);
         gltf.scene.traverse(ob=>{
             if(ob.isObject3D){
                  ob.castShadow = true;
@@ -412,10 +427,11 @@ function loadPieces(){
             gltf.scene.scale.y = gltf.scene.scale.y*3
             gltf.scene.scale.z = gltf.scene.scale.z*3
             gltf.scene.name = ('pawn'+(i+1));
-            const pawn = gltf.scene;
+            let pawn = gltf.scene;
             //Agregamos el modelo como hijo del objeto tablero.
             //boardObject.add( king );
             boardObject.add( pawn );
+            chessPieces.push(pawn);
             gltf.scene.traverse(ob=>{
                 if(ob.isObject3D){
                      ob.castShadow = true;
@@ -429,7 +445,7 @@ function loadPieces(){
         } );
     }
 }
-//Función que inicia la animación de la pieza seleccionada.
+//Función que inicia la animación de la pieza seleccionada (versión de prueba)
 function movePiece(){
     let pawn = scene.getObjectByName('pawn1');
     let oldPositionX = pawn.position.x;
@@ -441,9 +457,74 @@ function movePiece(){
         easing( TWEEN.Easing.Cubic.InOut ).
         start();
 }
+
+function animate(event)
+{
+    console.log("evento doble click")
+    // Capturar y normalizar
+    let x= event.clientX;
+    let y = event.clientY;
+    x = ( x / window.innerWidth ) * 2 - 1;
+    y = -( y / window.innerHeight ) * 2 + 1;
+    // Construir el rayo y detectar la interseccion
+    const rayo = new THREE.Raycaster();
+    rayo.setFromCamera(new THREE.Vector2(x,y), camera);
+    if(!selectingNewPosition && !movingPiece){
+        let intersecciones = rayo.intersectObjects(boardObject.children,true);
+
+        if( intersecciones.length > 0 ){
+            //comprobamos que hay una intersección con una de las piezas, es decir, con uno de los elementos del array de piezas.
+            const board = scene.getObjectByName('chessBoard')
+            for(let i = 0; (i < intersecciones.length) && !selectingNewPosition; i++){
+                console.log("Revisando qué pieza se seleccionó entre "+chessPieces.length)
+                let object = intersecciones[i].object
+                for(let j = 0; j < chessPieces.length && !selectingNewPosition; j++){
+                    //Si el objeto interseccionado es una pieza o hijo de una pieza, se selecciona la pieza.
+                    chessPieces[j].traverse(ob=>{
+                        if(ob.isObject3D){
+                             if(object == ob || object.parent == ob){
+                                console.log("Se ha seleccionado una pieza")
+                                selectedPiece = chessPieces[j]
+                                selectingNewPosition = true
+                                console.log("Seleccionada la pieza " + selectedPiece.name)
+                             }
+                        }
+                    })
+                }
+            }
+        }
+    }
+    else if(selectingNewPosition && !movingPiece){
+        //De momento ponemos al primer peón como pieza seleccionada.
+        //selectedPiece = scene.getObjectByName('pawn1');
+        let intersecciones = rayo.intersectObjects(boardObject.children,true);
+        if( intersecciones.length > 0 ){
+            const selectedPosition = intersecciones[0].point;
+            console.log("X: "+selectedPosition.x+"; Z: "+selectedPosition.z);
+            moveSelectedPiece(selectedPosition.x, selectedPosition.z)
+        }
+    }
+}
+
+//Función que inicia la animación de la pieza seleccionado
+function moveSelectedPiece(newPositionX, newPositionZ){
+    movingPiece = true;
+    let oldPositionX = selectedPiece.position.x;
+    let oldPositionY = selectedPiece.position.y;
+    let oldPositionZ = selectedPiece.position.z;
+    new TWEEN.Tween( selectedPiece.position ).
+        to( {x:[oldPositionX,newPositionX],y:[oldPositionY,30,oldPositionY],z:[oldPositionZ,newPositionZ]}, 2000 ).
+        interpolation( TWEEN.Interpolation.Bezier ).
+        easing( TWEEN.Easing.Cubic.InOut ).
+        onComplete(()=>{
+            selectingNewPosition = false;
+            movingPiece = false;
+        }).
+        start();
+}
 function setupGUI()
 {
-    const effectController = {
+    effectController = {
 		mensaje: 'Prueba animación',
         play: function(){movePiece();}
     }
