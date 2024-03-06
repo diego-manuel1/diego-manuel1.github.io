@@ -51,11 +51,11 @@ function init()
     const ambiental = new THREE.AmbientLight(0x404040, 1);
     scene.add(ambiental);
     //Añadimos luz direccional
-    /*const direccional = new THREE.DirectionalLight(0xFFFFFF,0.3);
-    direccional.position.set(0,10,0);
+    const direccional = new THREE.DirectionalLight(0xFFFFFF,0.8);
+    direccional.position.set(5,6,-5);
     direccional.castShadow = true;
     scene.add(direccional);
-    scene.add(new THREE.CameraHelper(direccional.shadow.camera));*/
+    scene.add(new THREE.CameraHelper(direccional.shadow.camera));
     //Añadimos luz focal
     /*const focal = new THREE.SpotLight(0xFFFFFF,0.3);
     focal.position.set(0,10,0);
@@ -145,7 +145,7 @@ function loadTable()
      gltf.scene.traverse(ob=>{
         if(ob.isObject3D){
              ob.castShadow = true;
-             ob.receiveShadow = true;
+             ob.receiveShadow = false;
         }
     })
  
@@ -172,7 +172,7 @@ function loadChessboard(){
        gltf.scene.traverse(ob=>{
         if(ob.isObject3D){
              ob.castShadow = true;
-             ob.receiveShadow = true;
+             ob.receiveShadow = false;
         }
         })
    
@@ -207,7 +207,7 @@ function loadPieces(){
        gltf.scene.traverse(ob=>{
         if(ob.isObject3D){
              ob.castShadow = true;
-             ob.receiveShadow = true;
+             ob.receiveShadow = false;
         }
         })
    
@@ -233,7 +233,7 @@ function loadPieces(){
     gltf.scene.traverse(ob=>{
         if(ob.isObject3D){
              ob.castShadow = true;
-             ob.receiveShadow = true;
+             ob.receiveShadow = false;
         }
     })
     }, undefined, function ( error ) {
@@ -259,7 +259,7 @@ function loadPieces(){
         gltf.scene.traverse(ob=>{
             if(ob.isObject3D){
                  ob.castShadow = true;
-                 ob.receiveShadow = true;
+                 ob.receiveShadow = false;
             }
         })
     }, undefined, function ( error ) {
@@ -285,7 +285,7 @@ function loadPieces(){
         gltf.scene.traverse(ob=>{
             if(ob.isObject3D){
                  ob.castShadow = true;
-                 ob.receiveShadow = true;
+                 ob.receiveShadow = false;
             }
         })
     }, undefined, function ( error ) {
@@ -318,7 +318,7 @@ function loadPieces(){
     gltf.scene.traverse(ob=>{
         if(ob.isObject3D){
              ob.castShadow = true;
-             ob.receiveShadow = true;
+             ob.receiveShadow = false;
         }
     })
 
@@ -352,7 +352,7 @@ function loadPieces(){
         gltf.scene.traverse(ob=>{
             if(ob.isObject3D){
                  ob.castShadow = true;
-                 ob.receiveShadow = true;
+                 ob.receiveShadow = false;
             }
         })
     
@@ -379,7 +379,7 @@ function loadPieces(){
         gltf.scene.traverse(ob=>{
             if(ob.isObject3D){
                  ob.castShadow = true;
-                 ob.receiveShadow = true;
+                 ob.receiveShadow = false;
             }
         })
 
@@ -406,7 +406,7 @@ function loadPieces(){
         gltf.scene.traverse(ob=>{
             if(ob.isObject3D){
                  ob.castShadow = true;
-                 ob.receiveShadow = true;
+                 ob.receiveShadow = false;
             }
         })
 
@@ -436,7 +436,7 @@ function loadPieces(){
             gltf.scene.traverse(ob=>{
                 if(ob.isObject3D){
                      ob.castShadow = true;
-                     ob.receiveShadow = true;
+                     ob.receiveShadow = false;
                 }
             })
         }, undefined, function ( error ) {
