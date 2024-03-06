@@ -193,7 +193,7 @@ function loadScene()
             gltf.scene.position.y = 0;
             gltf.scene.rotation.y = -Math.PI/2;
             pentObject.add( gltf.scene );
-            gltf.scene.scale.x = gltf.scene.scale.y * 2;
+            gltf.scene.scale.x = gltf.scene.scale.x * 2;
             gltf.scene.scale.y = gltf.scene.scale.y * 2;
             gltf.scene.scale.z = gltf.scene.scale.z * 2;
             console.log("LADY OFFICER");

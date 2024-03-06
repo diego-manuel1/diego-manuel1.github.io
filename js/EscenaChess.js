@@ -156,6 +156,31 @@ function loadTable()
      } );
 }
 
+function loadLady(){
+    glloader.load( 'models/anime_lady_officer/scene.gltf', function ( gltf ) {
+        gltf.scene.position.y = 0;
+        gltf.scene.rotation.y = -Math.PI/2;
+        gltf.scene.scale.x = gltf.scene.scale.x * 2;
+        gltf.scene.scale.y = gltf.scene.scale.y * 2;
+        gltf.scene.scale.z = gltf.scene.scale.z * 2;
+        console.log("LADY OFFICER");
+        model = gltf.scene;
+        //La chica produce y recibe sombras.
+        gltf.scene.traverse(ob=>{
+            if(ob.isObject3D) {
+                ob.castShadow = true;
+                ob.receiveShadow = true;
+            }
+        })
+        console.log(gltf);
+    
+    }, undefined, function ( error ) {
+    
+        console.error( error );
+    
+    } );
+}
+
 function loadChessboard(){
     // Importar un modelo en gltf
    const glloader = new GLTFLoader();
