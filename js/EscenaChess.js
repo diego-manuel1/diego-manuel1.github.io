@@ -32,7 +32,8 @@ function init()
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth,window.innerHeight);
     document.getElementById('container').appendChild( renderer.domElement );
-
+    renderer.antialias = true;
+    renderer.shadowMap.enabled = true;
     // Instanciar el nodo raiz de la escena
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0.5,0.5,0.5);
@@ -50,14 +51,14 @@ function init()
     const ambiental = new THREE.AmbientLight(0x404040, 1);
     scene.add(ambiental);
     //Añadimos luz direccional
-    const direccional = new THREE.DirectionalLight(0xFFFFFF,0.3);
-    direccional.position.set(-1,10,-1);
+    /*const direccional = new THREE.DirectionalLight(0xFFFFFF,0.3);
+    direccional.position.set(0,10,0);
     direccional.castShadow = true;
     scene.add(direccional);
-    scene.add(new THREE.CameraHelper(direccional.shadow.camera));
+    scene.add(new THREE.CameraHelper(direccional.shadow.camera));*/
     //Añadimos luz focal
-    const focal = new THREE.SpotLight(0xFFFFFF,0.3);
-    focal.position.set(-2,30,4);
+    /*const focal = new THREE.SpotLight(0xFFFFFF,0.3);
+    focal.position.set(0,10,0);
     focal.target.position.set(0,0,0);
     focal.angle= Math.PI/7;
     focal.penumbra = 0.3;
@@ -65,7 +66,7 @@ function init()
     focal.shadow.camera.far = 20;
     focal.shadow.camera.fov = 80;
     scene.add(focal);
-    scene.add(new THREE.CameraHelper(focal.shadow.camera));
+    scene.add(new THREE.CameraHelper(focal.shadow.camera));*/
 }
 
 function loadScene()
