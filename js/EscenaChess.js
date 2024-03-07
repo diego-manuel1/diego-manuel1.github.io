@@ -108,7 +108,7 @@ function loadScene()
     boardObject.position.y = 3.3
     //Cargamos las piezas del tablero
     loadPieces()
-    //loadLady();
+    loadLady();
     // Habitacion
     const path ="images/chess/Yokohama/"
     const paredes = [];
@@ -161,14 +161,18 @@ function loadTable()
 }
 
 function loadLady(){
+    // Importar un modelo en gltf
+    const glloader = new GLTFLoader();
+
     glloader.load( 'models/anime_lady_officer/scene.gltf', function ( gltf ) {
         gltf.scene.position.y = 0;
         gltf.scene.rotation.y = -Math.PI/2;
-        gltf.scene.scale.x = gltf.scene.scale.x * 2;
-        gltf.scene.scale.y = gltf.scene.scale.y * 2;
-        gltf.scene.scale.z = gltf.scene.scale.z * 2;
+        gltf.scene.scale.x = gltf.scene.scale.x * 4;
+        gltf.scene.scale.y = gltf.scene.scale.y * 4;
+        gltf.scene.scale.z = gltf.scene.scale.z * 4;
+        gltf.scene.position.x = 4;
         console.log("LADY OFFICER");
-        let model = gltf.scene;
+        const model = gltf.scene;
         //La chica produce y recibe sombras.
         gltf.scene.traverse(ob=>{
             if(ob.isObject3D) {
