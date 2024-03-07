@@ -578,39 +578,47 @@ function setupGUI()
         direccionalPosZ: -5,
         focalPosX: 5,
         focalPosY: 10,
-        focalPosZ: -5
+        focalPosZ: -5,
+        direccionalShadow: true,
+        focalShadow: true 
     }
 
     // Creacion interfaz
 	const gui = new GUI();
 
 	// Construccion del menu
-	const h = gui.addFolder("Control luces");
-    h.add(effectController, "mensaje").name("Aplicacion");
-    h.add(effectController, "direccionalIntensity", 0, 1, 0.1).name("Intensidad de la luz direccional").onChange(v => {
-        console.log("Cambiando intensidad luz direccional")
+	const hd = gui.addFolder("Control luz direccional");
+    hd.add(effectController, "direccionalIntensity", 0, 1, 0.1).name("Intensidad de la luz direccional").onChange(v => {
         direccional.intensity = v;
     });
-    h.add(effectController, "focalIntensity", 0, 1, 0.1).name("Intensidad de la luz focal").onChange(v => {
-        focal.intensity = v;
-    });
-    h.add(effectController, "direccionalPosX", -5, 5, 0.5).name("Posición luz direccional eje X").onChange(v => {
+    hd.add(effectController, "direccionalPosX", -5, 5, 0.5).name("Posición luz direccional eje X").onChange(v => {
         direccional.position.x = v;
     });
-    h.add(effectController, "direccionalPosY", 0, 10, 0.5).name("Posición luz direccional eje Y").onChange(v => {
+    hd.add(effectController, "direccionalPosY", 0, 10, 0.5).name("Posición luz direccional eje Y").onChange(v => {
         direccional.position.y = v;
     });
-    h.add(effectController, "direccionalPosZ", -5, 5, 0.5).name("Posición luz direccional eje Z").onChange(v => {
+    hd.add(effectController, "direccionalPosZ", -5, 5, 0.5).name("Posición luz direccional eje Z").onChange(v => {
         direccional.position.z = v;
     });
-    h.add(effectController, "focalPosX", -5, 5, 0.5).name("Posición luz focal eje X").onChange(v => {
+    hd.add(effectController, "direccionalShadow").name("Generar sombras con luz direccional").onChange(v => {
+        direccional.castShadow = v;
+    });
+
+    const hf =  gui.addFolder("Control luz focal");
+    hf.add(effectController, "focalIntensity", 0, 1, 0.1).name("Intensidad de la luz focal").onChange(v => {
+        focal.intensity = v;
+    });
+    hf.add(effectController, "focalPosX", -5, 5, 0.5).name("Posición luz focal eje X").onChange(v => {
         focal.position.x = v;
     });
-    h.add(effectController, "focalPosY", 0, 10, 0.5).name("Posición luz focal eje Y").onChange(v => {
+    hf.add(effectController, "focalPosY", 0, 10, 0.5).name("Posición luz focal eje Y").onChange(v => {
         focal.position.y = v;
     });
-    h.add(effectController, "focalPosZ", -5, 5, 0.5).name("Posición luz focal eje Z").onChange(v => {
+    hf.add(effectController, "focalPosZ", -5, 5, 0.5).name("Posición luz focal eje Z").onChange(v => {
         focal.position.z = v;
+    });
+    hf.add(effectController, "focalShadow").name("Generar sombras con luz focal").onChange(v => {
+        focal.castShadow = v;
     });
 }
 
