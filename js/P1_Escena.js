@@ -55,9 +55,8 @@ function init()
 
 function loadScene()
 {
-    //const material = new THREE.MeshNormalMaterial();
-    //Cambiamos de momento a un basic material
-    const material = new THREE.MeshBasicMaterial( { color: 'yellow', wireframe: true } );
+    const material = new THREE.MeshNormalMaterial( {color: 'yellow'});
+    //const material = new THREE.MeshBasicMaterial( { color: 'yellow', wireframe: true } );
     /*******************
     * TO DO: Construir un suelo en el plano XZ
     *******************/
@@ -146,7 +145,7 @@ function loadScene()
     *******************/
     const glloader = new GLTFLoader();
     glloader.load( 'models/anime_lady_officer/scene.gltf', function ( gltf ) {
-            gltf.scene.position.y = -1;
+            gltf.scene.position.y = 0;
             gltf.scene.rotation.y = -Math.PI/2;
             pentObject.add( gltf.scene );
             gltf.scene.scale.x = gltf.scene.scale.x * 2;

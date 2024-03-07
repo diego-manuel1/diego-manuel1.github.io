@@ -105,6 +105,7 @@ function loadScene()
     boardObject.position.y = 3.3
     //Cargamos las piezas del tablero
     loadPieces()
+    //loadLady();
     // Habitacion
     const path ="images/chess/Yokohama/"
     const paredes = [];
@@ -164,7 +165,7 @@ function loadLady(){
         gltf.scene.scale.y = gltf.scene.scale.y * 2;
         gltf.scene.scale.z = gltf.scene.scale.z * 2;
         console.log("LADY OFFICER");
-        model = gltf.scene;
+        let model = gltf.scene;
         //La chica produce y recibe sombras.
         gltf.scene.traverse(ob=>{
             if(ob.isObject3D) {
@@ -172,6 +173,7 @@ function loadLady(){
                 ob.receiveShadow = true;
             }
         })
+        scene.add(model);
         console.log(gltf);
     
     }, undefined, function ( error ) {
