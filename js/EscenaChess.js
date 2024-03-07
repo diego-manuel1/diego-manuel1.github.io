@@ -166,11 +166,12 @@ function loadLady(){
 
     glloader.load( 'models/anime_lady_officer/scene.gltf', function ( gltf ) {
         gltf.scene.position.y = 0;
-        gltf.scene.rotation.y = -Math.PI/2;
+        //gltf.scene.rotation.y = -Math.PI/2;
         gltf.scene.scale.x = gltf.scene.scale.x * 4;
         gltf.scene.scale.y = gltf.scene.scale.y * 4;
         gltf.scene.scale.z = gltf.scene.scale.z * 4;
-        gltf.scene.position.x = 4;
+        //gltf.scene.position.x = 4;
+        gltf.scene.position.z = -4;
         console.log("LADY OFFICER");
         const model = gltf.scene;
         //La chica produce y recibe sombras.
