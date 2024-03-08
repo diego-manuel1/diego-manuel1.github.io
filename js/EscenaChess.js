@@ -79,12 +79,19 @@ function init()
 function loadScene()
 {
     //Creamos las texturas
-    //const texsuelo = new THREE.TextureLoader().load("images/chess/Cement/Cement.jpg");
     const texsuelo = new THREE.TextureLoader().load("images/chess/baldosas.jpg");
     //Creamos el material del suelo
-    //const materialSuelo = new THREE.MeshBasicMaterial( { color: 'yellow', wireframe: true } );
     const materialSuelo = new THREE.MeshStandardMaterial({map:texsuelo});
     const suelo = new THREE.Mesh( new THREE.PlaneGeometry(15,15, 15,15), materialSuelo );
+    const path ="images/chess/Yokohama/"
+    const entorno = [ path+"posx.jpg", path+"negx.jpg",
+                      path+"posy.jpg", path+"negy.jpg",
+                      path+"posz.jpg", path+"negz.jpg"];
+    const texesfera = new THREE.CubeTextureLoader().load(entorno);
+    const matesfera = new THREE.MeshPhongMaterial({color:'white',
+                                                   specular:'gray',
+                                                   shininess: 30,
+                                                   envMap: texesfera });
     suelo.receiveShadow = true;
     suelo.rotation.x = -Math.PI / 2;
     scene.add(suelo);
@@ -95,8 +102,6 @@ function loadScene()
     tableObject.position.x = 0;
     tableObject.position.y = 0;
     tableObject.position.z = 0;
-    //Agregamos el objeto tablero a la escena.
-    //scene.add(tableObject);
     //Cargamos la mesa y el tablero
     loadTable();
     loadChessboard();
@@ -110,11 +115,27 @@ function loadScene()
     boardObject.scale.z = boardObject.scale.z*0.05
     //Movemos el tablero encima de la mesa.
     boardObject.position.y = 3.3
+    //Creamos una esfera
+    const geoEsfera = new THREE.SphereGeometry( 1, 20,20 );
+    const esfera = new THREE.Mesh(geoEsfera, matesfera)
+    esfera.position.x = -1.9;
+    esfera.position.y = 3.5;
+    esfera.scale.x = esfera.scale.x/3;
+    esfera.scale.y = esfera.scale.y/3;
+    esfera.scale.z = esfera.scale.z/3;
+    //Activamos generación de sombras y recepción de sombras de la esfera
+    esfera.traverse(ob=>{
+        if(ob.isObject3D){
+             ob.castShadow = true;
+             ob.receiveShadow = true;
+        }
+    })
+    //Añadimos la esfera como hijo de la mesa.
+    tableObject.add(esfera);
     //Cargamos las piezas del tablero
     loadPieces()
     loadLady();
     // Habitacion
-    const path ="images/chess/Yokohama/"
     const paredes = [];
     paredes.push( new THREE.MeshBasicMaterial({side:THREE.BackSide,
                   map: new THREE.TextureLoader().load(path+"posx.jpg")}) );
