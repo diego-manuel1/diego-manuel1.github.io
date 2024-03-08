@@ -6,7 +6,7 @@ import {TWEEN} from "../lib/tween.module.min.js";
 import {GUI} from "../lib/lil-gui.module.min.js";
 
 // Variables estandar
-let renderer, scene, camera;
+let renderer, scene, camera, cameraLady;
 let cameraControls, effectController;
 // Otras globales
 let tableObject;
@@ -25,6 +25,7 @@ let focal;
 let direccionalHelper;
 let focalHelper;
 
+const L = 5;
 // Acciones
 init();
 loadScene();
@@ -39,19 +40,30 @@ function init()
     document.getElementById('container').appendChild( renderer.domElement );
     renderer.antialias = true;
     renderer.shadowMap.enabled = true;
+    //renderer.autoClear = false;
     // Instanciar el nodo raiz de la escena
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0.5,0.5,0.5);
 
-    // Instanciar la camara
-    camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1,100);
+    // Instanciar la camara principal
+    const ar = window.innerWidth/window.innerHeight;
+    camera = new THREE.PerspectiveCamera( 75, ar, 0.1,100);
     camera.position.set( 0.5, 2, 7 );
-    //Controles de camara
+    //Controles de camara principal
     cameraControls = new OrbitControls( camera, renderer.domElement );
     cameraControls.target.set(0,1,0);
     camera.lookAt( new THREE.Vector3(0,1,0) );
+    //Crear segunda camara a la vista del personaje
+    if(ar>1)
+     cameraLady = new THREE.PerspectiveCamera(-L*ar,L*ar,L,-L,-10,100);
+    else
+     cameraLady = new THREE.PerspectiveCamera(-L,L,L/ar,-L/ar,-10,100);
+    cameraLady.position.set(0, 1, -4);
+    cameraLady.lookAt( new THREE.Vector3(0,1,0) );
+    cameraLady.up = new THREE.Vector3(0,1,0);
     // Eventos
     renderer.domElement.addEventListener('dblclick', animate );
+    window.addEventListener('resize', updateAspectRatio );
     //Añadimos luz ambiental
     const ambiental = new THREE.AmbientLight(0x404040, 1);
     scene.add(ambiental);
@@ -675,9 +687,47 @@ function update()
     TWEEN.update();
 }
 
+function updateAspectRatio()
+{
+    // Renueva la relación de aspecto de la camara
+    /*******************
+    * TO DO: Actualizar relacion de aspecto de ambas camaras
+    *******************/
+    const ar = window.innerWidth/window.innerHeight;
+
+    // Dimensiones del canvas
+    renderer.setSize(window.innerWidth,window.innerHeight);
+
+    // Reajuste de la relacion de aspecto de las camaras
+
+    camera.aspect = ar;
+    camera.updateProjectionMatrix();
+
+    if(ar>1){
+        cameraLady.left = -L*ar;
+        cameraLady.right = L*ar;
+        cameraLady.top =  L;
+        cameraLady.bottom = -L;    
+    }
+    else{
+        cameraLady.left = -L;
+        cameraLady.right = L;
+        cameraLady.top = L/ar;
+        cameraLady.bottom = -L/ar;       
+    }
+    camaraOrto.updateProjectionMatrix();  
+}
+
 function render()
 {
     requestAnimationFrame(render);
     update();
     renderer.render(scene,camera);
+    // Limpieza del canvas una vez por frame
+    //renderer.clear();
+    //Renderizamos las vistas
+    /*renderer.setViewport(0 ,0 ,window.innerWidth,window.innerHeight);
+    renderer.render( scene, camera );
+    renderer.setViewport(0, 7*window.innerHeight/8, window.innerWidth/8,window.innerHeight/8);
+    renderer.render( scene, cameraLady );*/
 }
