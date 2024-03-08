@@ -48,7 +48,7 @@ function init()
     // Instanciar la camara principal
     const ar = window.innerWidth/window.innerHeight;
     camera = new THREE.PerspectiveCamera( 75, ar, 0.1,100);
-    camera.position.set( 0.5, 2, 7 );
+    camera.position.set( 0.5, 4, 7 );
     //Controles de camara principal
     cameraControls = new OrbitControls( camera, renderer.domElement );
     cameraControls.target.set(0,1,0);
@@ -715,7 +715,7 @@ function updateAspectRatio()
         cameraLady.top = L/ar;
         cameraLady.bottom = -L/ar;       
     }
-    camaraOrto.updateProjectionMatrix();  
+    cameraLady.updateProjectionMatrix();  
 }
 
 function render()
