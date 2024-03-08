@@ -22,6 +22,8 @@ let selectedPiece;
 // Variables para las luces direccional y focal.
 let direccional;
 let focal;
+let direccionalHelper;
+let focalHelper;
 
 // Acciones
 init();
@@ -58,7 +60,8 @@ function init()
     direccional.position.set(5,6,-5);
     direccional.castShadow = true;
     scene.add(direccional);
-    scene.add(new THREE.CameraHelper(direccional.shadow.camera));
+    direccionalHelper = new THREE.CameraHelper(direccional.shadow.camera)
+    scene.add(direccionalHelper);
     //Añadimos luz focal
     focal = new THREE.SpotLight(0xFFFFFF,0.3);
     focal.position.set(5,10,-5);
@@ -69,7 +72,8 @@ function init()
     focal.shadow.camera.far = 20;
     focal.shadow.camera.fov = 80;
     scene.add(focal);
-    scene.add(new THREE.CameraHelper(focal.shadow.camera));
+    focalHelper = new THREE.CameraHelper(focal.shadow.camera)
+    scene.add(focalHelper);
 }
 
 function loadScene()
@@ -585,7 +589,9 @@ function setupGUI()
         focalPosY: 10,
         focalPosZ: -5,
         direccionalShadow: true,
-        focalShadow: true 
+        focalShadow: true,
+        enableDireccinalHelper: true,
+        enableFocalHelper: true
     }
 
     // Creacion interfaz
@@ -608,6 +614,14 @@ function setupGUI()
     hd.add(effectController, "direccionalShadow").name("Generar sombras con luz direccional").onChange(v => {
         direccional.castShadow = v;
     });
+    hd.add(effectController, "enableDireccinalHelper").name("Mostrar helper de luz direccional").onChange(v => {
+        if(v){
+            scene.add(direccionalHelper);
+        }
+        else{
+            scene.remove(direccionalHelper);
+        }
+    })
 
     const hf =  gui.addFolder("Control luz focal");
     hf.add(effectController, "focalIntensity", 0, 1, 0.1).name("Intensidad de la luz focal").onChange(v => {
@@ -625,6 +639,14 @@ function setupGUI()
     hf.add(effectController, "focalShadow").name("Generar sombras con luz focal").onChange(v => {
         focal.castShadow = v;
     });
+    hf.add(effectController, "enableFocalHelper").name("Mostrar helper de luz focal").onChange(v => {
+        if(v){
+            scene.add(focalHelper);
+        }
+        else{
+            scene.remove(focalHelper);
+        }
+    })
 }
 
 function update()
