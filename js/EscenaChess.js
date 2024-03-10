@@ -167,7 +167,7 @@ function loadScene()
     habitacion.position.z = 0;*/
     scene.add(habitacion);
     //Añadimos ejes a la escena.
-    scene.add( new THREE.AxesHelper(3) );
+    //scene.add( new THREE.AxesHelper(3) );
 }
 
 function loadTable()
