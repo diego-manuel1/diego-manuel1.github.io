@@ -54,16 +54,16 @@ function init()
     cameraControls.target.set(0,1,0);
     camera.lookAt( new THREE.Vector3(0,1,0) );
     //Crear segunda camara a la vista del personaje
-    if(ar>1)
-     cameraLady = new THREE.PerspectiveCamera(-L*ar,L*ar,L,-L,-10,100);
+    /*if(ar>1)
+     cameraLady = new THREE.OrthographicCamera(-L*ar,L*ar,L,-L,-10,100);
     else
-     cameraLady = new THREE.PerspectiveCamera(-L,L,L/ar,-L/ar,-10,100);
+     cameraLady = new THREE.OrthographicCamera(-L,L,L/ar,-L/ar,-10,100);
     cameraLady.position.set(0, 1, -4);
     cameraLady.lookAt( new THREE.Vector3(0,1,0) );
-    cameraLady.up = new THREE.Vector3(0,1,0);
+    cameraLady.up = new THREE.Vector3(0,1,0);*/
     // Eventos
     renderer.domElement.addEventListener('dblclick', animate );
-    window.addEventListener('resize', updateAspectRatio );
+    //window.addEventListener('resize', updateAspectRatio );
     //Añadimos luz ambiental
     const ambiental = new THREE.AmbientLight(0x404040, 1);
     scene.add(ambiental);
